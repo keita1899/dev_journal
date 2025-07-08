@@ -3,6 +3,7 @@ export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://loca
 export const API_ENDPOINTS = {
   auth: {
     signup: '/api/v1',
+    signin: '/api/v1/sign_in',
   },
   health: '/api/v1/health',
 } as const

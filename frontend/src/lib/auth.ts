@@ -28,7 +28,6 @@ authApi.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
-      window.location.href = '/signup'
     }
     return Promise.reject(error)
   },
@@ -44,6 +43,11 @@ export interface SignUpData {
   email: string
   password: string
   password_confirmation: string
+}
+
+export interface SignInData {
+  email: string
+  password: string
 }
 
 export interface AuthResponse {
@@ -73,6 +77,31 @@ export const signUp = async (data: SignUpData): Promise<AuthResponse> => {
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error || 'Sign up failed')
+    }
+    throw error
+  }
+}
+
+export const signIn = async (data: SignInData): Promise<AuthResponse> => {
+  try {
+    const response = await authApi.post(API_ENDPOINTS.auth.signin, {
+      user: {
+        email: data.email,
+        password: data.password,
+      },
+    })
+
+    const token = response.headers['authorization']?.replace('Bearer ', '')
+    if (!token) {
+      throw new Error('No authentication token received')
+    }
+    localStorage.setItem('token', token)
+    localStorage.setItem('user', JSON.stringify(response.data.user))
+
+    return response.data
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error || 'Sign in failed')
     }
     throw error
   }
