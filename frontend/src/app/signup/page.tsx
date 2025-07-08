@@ -37,14 +37,17 @@ export default function SignUpPage() {
       if (response.status === 'success') {
         router.push('/dashboard')
       }
-    } catch (error: any) {
-      if (error.response?.data?.errors) {
-        setErrors(error.response.data.errors)
+    } catch (error: unknown) {
+      if (error instanceof Error && 'response' in error) {
+        const axiosError = error as any
+        if (axiosError.response?.data?.errors && Array.isArray(axiosError.response.data.errors)) {
+          setErrors(axiosError.response.data.errors)
+        } else {
+          setErrors(['新規登録に失敗しました'])
+        }
       } else {
         setErrors(['新規登録に失敗しました'])
       }
-    } finally {
-      setLoading(false)
     }
   }
 

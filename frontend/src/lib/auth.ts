@@ -53,19 +53,27 @@ export interface AuthResponse {
 }
 
 export const signUp = async (data: SignUpData): Promise<AuthResponse> => {
-  const response = await authApi.post(API_ENDPOINTS.auth.signup, {
-    user: {
-      email: data.email,
-      password: data.password,
-      password_confirmation: data.password_confirmation,
-    },
-  })
+  try {
+    const response = await authApi.post(API_ENDPOINTS.auth.signup, {
+      user: {
+        email: data.email,
+        password: data.password,
+        password_confirmation: data.password_confirmation,
+      },
+    })
 
-  const token = response.headers['authorization']?.replace('Bearer ', '')
-  if (token) {
+    const token = response.headers['authorization']?.replace('Bearer ', '')
+    if (!token) {
+      throw new Error('No authentication token received')
+    }
     localStorage.setItem('token', token)
     localStorage.setItem('user', JSON.stringify(response.data.user))
-  }
 
-  return response.data
+    return response.data
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error || 'Sign up failed')
+    }
+    throw error
+  }
 }
