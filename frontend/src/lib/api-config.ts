@@ -4,6 +4,7 @@ export const API_ENDPOINTS = {
   auth: {
     signup: '/api/v1',
     signin: '/api/v1/sign_in',
+    signout: '/api/v1/sign_out',
   },
   health: '/api/v1/health',
 } as const

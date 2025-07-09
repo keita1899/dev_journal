@@ -1,11 +1,12 @@
 'use client'
 
 import { ReactNode, createContext, useContext, useEffect, useState } from 'react'
-import { User } from '@/lib/auth'
+import { User, signOut } from '@/lib/auth'
 
 interface AuthContextType {
   user: User | null
   login: (user: User, token: string) => void
+  logout: () => Promise<void>
   isAuthenticated: boolean
   isLoading: boolean
 }
@@ -24,6 +25,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('user', JSON.stringify(user))
   }
 
+  const logout = async () => {
+    await signOut()
+    setUser(null)
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('token')
     const storedUser = localStorage.getItem('user')
@@ -34,6 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(parsedUser)
       } catch (error) {
         console.error('Failed to parse stored user:', error)
+        logout()
       }
     }
 
@@ -43,6 +50,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const value = {
     user,
     login,
+    logout,
     isAuthenticated,
     isLoading,
   }

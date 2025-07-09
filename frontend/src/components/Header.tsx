@@ -6,8 +6,13 @@ import { BookOpenIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 import { useAuth } from '@/contexts/AuthContext'
 
 export const Header = () => {
-  const { isAuthenticated, user, isLoading } = useAuth()
+  const { isAuthenticated, user, logout, isLoading } = useAuth()
   const router = useRouter()
+
+  const handleLogout = async () => {
+    await logout()
+    router.push('/')
+  }
 
   return (
     <nav className="absolute top-0 z-50 w-full px-6 py-4">
@@ -29,7 +34,10 @@ export const Header = () => {
                 <UserCircleIcon className="h-5 w-5" />
                 <span>{user?.email}</span>
               </div>
-              <button className="rounded-full bg-gray-600 px-4 py-2 text-sm transition-all hover:bg-gray-700">
+              <button
+                onClick={handleLogout}
+                className="rounded-full bg-gray-600 px-4 py-2 text-sm transition-all hover:bg-gray-700"
+              >
                 ログアウト
               </button>
             </>

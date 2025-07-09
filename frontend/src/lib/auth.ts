@@ -106,3 +106,14 @@ export const signIn = async (data: SignInData): Promise<AuthResponse> => {
     throw error
   }
 }
+
+export const signOut = async (): Promise<void> => {
+  try {
+    await authApi.delete(API_ENDPOINTS.auth.signout)
+  } catch (error) {
+    console.error('Logout failed:', error)
+  } finally {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+  }
+}
