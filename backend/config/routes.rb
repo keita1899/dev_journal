@@ -4,18 +4,17 @@ Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
 
+  devise_for :users,
+             path: "api/v1",
+             controllers: {
+               registrations: "api/v1/registrations",
+               sessions: "api/v1/sessions",
+             }
+
   namespace :api do
     namespace :v1 do
-      devise_for :users,
-                 path: "",
-                 path_names: {
-                   registration: "signup",
-                 },
-                 controllers: {
-                   registrations: "api/v1/registrations",
-                 }
-
       get "health" => "health#show"
+      get "auth/validate" => "auth#validate"
     end
   end
 

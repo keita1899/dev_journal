@@ -5,6 +5,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
 
     def respond_with(resource, _opts = {})
       if resource.persisted?
+        sign_in(resource)
         render json: {
           status: "success",
           message: "アカウントが作成されました",
