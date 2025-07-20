@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { signIn, SignInData } from '@/lib/auth'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function SignInPage() {
   const [formData, setFormData] = useState<SignInData>({
@@ -16,6 +17,7 @@ export default function SignInPage() {
   const [loading, setLoading] = useState(false)
 
   const router = useRouter()
+  const { setAuth } = useAuth()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -34,16 +36,13 @@ export default function SignInPage() {
       const response = await signIn(formData)
 
       if (response.status === 'success') {
+        setAuth(response.user, response.token)
         router.push('/dashboard')
       }
     } catch (error: unknown) {
-      if (error instanceof Error && 'response' in error) {
-        const axiosError = error as any
-        if (axiosError.response?.data?.errors && Array.isArray(axiosError.response.data.errors)) {
-          setErrors(axiosError.response.data.errors)
-        } else {
-          setErrors(['ログインに失敗しました'])
-        }
+      if (error instanceof Error) {
+        const errorArray = (error as any).errors || [error.message]
+        setErrors(errorArray)
       } else {
         setErrors(['ログインに失敗しました'])
       }

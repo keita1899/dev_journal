@@ -14,7 +14,7 @@ describe('Page', () => {
     render(
       <AuthProvider>
         <Page />
-      </AuthProvider>
+      </AuthProvider>,
     )
 
     const heading = screen.getByRole('heading', { level: 1 })

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { signUp, SignUpData } from '@/lib/auth'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState<SignUpData>({
@@ -17,6 +18,7 @@ export default function SignUpPage() {
   const [loading, setLoading] = useState(false)
 
   const router = useRouter()
+  const { setAuth } = useAuth()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -35,16 +37,13 @@ export default function SignUpPage() {
       const response = await signUp(formData)
 
       if (response.status === 'success') {
+        setAuth(response.user, response.token)
         router.push('/dashboard')
       }
     } catch (error: unknown) {
-      if (error instanceof Error && 'response' in error) {
-        const axiosError = error as any
-        if (axiosError.response?.data?.errors && Array.isArray(axiosError.response.data.errors)) {
-          setErrors(axiosError.response.data.errors)
-        } else {
-          setErrors(['新規登録に失敗しました'])
-        }
+      if (error instanceof Error) {
+        const errorArray = (error as any).errors || [error.message]
+        setErrors(errorArray)
       } else {
         setErrors(['新規登録に失敗しました'])
       }

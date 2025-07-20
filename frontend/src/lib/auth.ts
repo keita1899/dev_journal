@@ -54,6 +54,13 @@ export interface AuthResponse {
   status: string
   message: string
   user: User
+  token: string
+}
+
+export interface AuthError {
+  status: string
+  message: string
+  errors?: string[]
 }
 
 export const signUp = async (data: SignUpData): Promise<AuthResponse> => {
@@ -70,13 +77,18 @@ export const signUp = async (data: SignUpData): Promise<AuthResponse> => {
     if (!token) {
       throw new Error('No authentication token received')
     }
-    localStorage.setItem('token', token)
-    localStorage.setItem('user', JSON.stringify(response.data.user))
 
-    return response.data
+    return {
+      ...response.data,
+      token,
+    }
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error || 'Sign up failed')
+      const errorData: AuthError = error.response.data
+      const errorMessage = errorData.errors?.join(', ') || errorData.message || 'Sign up failed'
+      const customError = new Error(errorMessage)
+      ;(customError as any).errors = errorData.errors
+      throw customError
     }
     throw error
   }
@@ -95,13 +107,18 @@ export const signIn = async (data: SignInData): Promise<AuthResponse> => {
     if (!token) {
       throw new Error('No authentication token received')
     }
-    localStorage.setItem('token', token)
-    localStorage.setItem('user', JSON.stringify(response.data.user))
 
-    return response.data
+    return {
+      ...response.data,
+      token,
+    }
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error || 'Sign in failed')
+      const errorData: AuthError = error.response.data
+      const errorMessage = errorData.errors?.join(', ') || errorData.message || 'Sign in failed'
+      const customError = new Error(errorMessage)
+      ;(customError as any).errors = errorData.errors
+      throw customError
     }
     throw error
   }
