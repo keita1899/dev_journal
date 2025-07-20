@@ -6,11 +6,11 @@ import { BookOpenIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 import { useAuth } from '@/contexts/AuthContext'
 
 export const Header = () => {
-  const { isAuthenticated, user, logout, isLoading } = useAuth()
+  const { isAuthenticated, currentUser, clearAuth, isLoading } = useAuth()
   const router = useRouter()
 
   const handleLogout = async () => {
-    await logout()
+    await clearAuth()
     router.push('/')
   }
 
@@ -32,7 +32,7 @@ export const Header = () => {
               </Link>
               <div className="flex items-center space-x-2 text-gray-300">
                 <UserCircleIcon className="h-5 w-5" />
-                <span>{user?.email}</span>
+                <span>{currentUser?.email}</span>
               </div>
               <button
                 onClick={handleLogout}

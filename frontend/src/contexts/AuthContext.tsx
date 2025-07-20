@@ -1,12 +1,12 @@
 'use client'
 
 import { ReactNode, createContext, useContext, useEffect, useState } from 'react'
-import { User, signOut } from '@/lib/auth'
+import { User, signOut, authApi } from '@/lib/auth'
 
 interface AuthContextType {
-  user: User | null
-  login: (user: User, token: string) => void
-  logout: () => Promise<void>
+  currentUser: User | null
+  setAuth: (user: User, token: string) => void
+  clearAuth: () => Promise<void>
   isAuthenticated: boolean
   isLoading: boolean
 }
@@ -14,43 +14,50 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null)
+  const [currentUser, setCurrentUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  const isAuthenticated = !!user
+  const isAuthenticated = !!currentUser
 
-  const login = (user: User, token: string) => {
-    setUser(user)
+  const setAuth = (user: User, token: string) => {
+    setCurrentUser(user)
     localStorage.setItem('token', token)
     localStorage.setItem('user', JSON.stringify(user))
   }
 
-  const logout = async () => {
+  const clearAuth = async () => {
     await signOut()
-    setUser(null)
+    setCurrentUser(null)
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    const storedUser = localStorage.getItem('user')
+    const validateToken = async () => {
+      const token = localStorage.getItem('token')
+      const storedUser = localStorage.getItem('user')
 
-    if (token && storedUser) {
-      try {
-        const parsedUser = JSON.parse(storedUser)
-        setUser(parsedUser)
-      } catch (error) {
-        console.error('Failed to parse stored user:', error)
-        logout()
+      if (token && storedUser) {
+        try {
+          const parsedUser = JSON.parse(storedUser)
+          await authApi.get('/api/v1/auth/validate')
+          setCurrentUser(parsedUser)
+        } catch (error) {
+          console.error('Token validation failed:', error)
+          localStorage.removeItem('token')
+          localStorage.removeItem('user')
+          setCurrentUser(null)
+        }
       }
+
+      setIsLoading(false)
     }
 
-    setIsLoading(false)
+    validateToken()
   }, [])
 
   const value = {
-    user,
-    login,
-    logout,
+    currentUser,
+    setAuth,
+    clearAuth,
     isAuthenticated,
     isLoading,
   }
