@@ -25,7 +25,7 @@ module Backend
     config.active_record.default_timezone = :utc
 
     config.i18n.default_locale = :ja
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+    config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.{rb,yml}').to_s]
 
     # config.eager_load_paths << Rails.root.join("extras")
 
@@ -36,12 +36,12 @@ module Backend
 
     config.generators do |g|
       g.test_framework :rspec,
-        fixtures: false,
-        view_specs: false,
-        helper_specs: false,
-        routing_specs: false,
-        controller_specs: false,
-        request_specs: true
+                       fixtures: false,
+                       view_specs: false,
+                       helper_specs: false,
+                       routing_specs: false,
+                       controller_specs: false,
+                       request_specs: true
     end
   end
 end
