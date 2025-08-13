@@ -1,0 +1,42 @@
+services:
+  backend:
+    build:
+      context: ./backend
+
+    command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
+
+    volumes:
+      - ./backend:/backend
+      - bundle_data:/usr/local/bundle
+
+    working_dir: /backend
+
+    ports:
+      - 3300:3000
+
+    depends_on:
+      - db
+
+    tty: true
+
+    stdin_open: true
+
+    env_file:
+      - ./.env
+      - ./backend/.env
+
+  db:
+    image: postgres:15
+
+    env_file:
+      - ./.env
+
+    ports:
+      - '5436:5432'
+
+    volumes:
+      - 'postgres_data:/var/lib/postgresql/data'
+
+volumes:
+  postgres_data:
+  bundle_data:

@@ -1,0 +1,52 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write '**/*.{js,jsx,ts,tsx,json,md}'",
+    "format:check": "prettier --check '**/*.{js,jsx,ts,tsx,json,md}'"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.1",
+    "axios": "^1.11.0",
+    "next": "15.4.5",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-hook-form": "^7.62.0",
+    "swr": "^2.3.6",
+    "zod": "^4.0.17"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.54.2",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jest-dom": "^5.5.0",
+    "eslint-plugin-tailwindcss": "^3.18.2",
+    "eslint-plugin-testing-library": "^7.6.5",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^3.4.17",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  }
+}

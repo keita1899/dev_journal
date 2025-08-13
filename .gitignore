@@ -1,0 +1,68 @@
+# ===================================================================
+# General (OS / Editor / Env)
+# ===================================================================
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Environment variables
+# We will manage env files in their respective directories
+.env
+/backend/.env
+/frontend/.env*
+!/frontend/.env*.example
+
+# ===================================================================
+# Backend (Rails)
+# ===================================================================
+/backend/.bundle
+/backend/log/*
+/backend/tmp/*
+/backend/storage/*
+/backend/public/assets
+/backend/.rubocop_cache
+
+# Ignore pidfiles, but keep the directory.
+/backend/tmp/pids/*
+!/backend/tmp/pids/.keep
+
+# Ignore master key for decrypting credentials and more.
+/backend/config/master.key
+/backend/config/credentials.yml.enc
+
+# Keep empty directories in git
+!/backend/log/.keep
+!/backend/tmp/.keep
+!/backend/storage/.keep
+
+# ===================================================================
+# Frontend (Next.js)
+# ===================================================================
+# Dependencies
+/frontend/node_modules
+
+# Build outputs
+/frontend/.next/
+/frontend/out/
+/frontend/build/
+
+# Vercel
+/frontend/.vercel
+
+# TypeScript
+/frontend/*.tsbuildinfo
+/frontend/next-env.d.ts
+
+# Debug logs
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+/frontend/.pnpm-debug.log*
+
+# Playwright
+/frontend/test-results/
+/frontend/playwright-report/
+/frontend/blob-report/
+/frontend/playwright/.cache/
