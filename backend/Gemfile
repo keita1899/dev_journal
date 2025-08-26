@@ -62,3 +62,7 @@ group :development do
 
   gem 'bullet'
 end
+
+group :test do
+  gem 'sqlite3', '~> 1.7'
+end
