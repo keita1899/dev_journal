@@ -1,10 +1,10 @@
-FROM ruby:3.2.2-slim AS build_deps
+FROM ruby:3.2.9-slim AS build_deps
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
     build-essential \
-    libpq-dev
+    libyaml-dev
 
-FROM ruby:3.2.2-slim AS runtime_deps
+FROM ruby:3.2.9-slim AS runtime_deps
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
     tzdata \
