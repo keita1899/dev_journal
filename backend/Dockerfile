@@ -33,6 +33,9 @@ COPY . .
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
+ENV RAILS_ENV=production
+ENV RACK_ENV=production
+ENV PORT=8080
 EXPOSE 8080
-CMD ["bundle", "exec", "rails", "s", "-p", "8080", "-b", "0.0.0.0"]
-
+# Use shell form to expand ${PORT}
+CMD ["sh", "-lc", "bundle exec rails s -p ${PORT:-8080} -b 0.0.0.0"]
