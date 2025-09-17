@@ -109,10 +109,6 @@ GEM
     devise-i18n (1.14.0)
       devise (>= 4.9.0)
       rails-i18n
-    devise_token_auth (1.2.5)
-      bcrypt (~> 3.0)
-      devise (> 3.5.2, < 5)
-      rails (>= 4.2.0, < 8.1)
     diff-lcs (1.6.2)
     drb (2.2.3)
     erb (5.0.2)
@@ -325,7 +321,6 @@ DEPENDENCIES
   debug
   devise
   devise-i18n
-  devise_token_auth
   factory_bot_rails
   faker
   jsonapi-serializer
