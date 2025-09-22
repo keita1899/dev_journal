@@ -40,3 +40,9 @@ Metrics/BlockLength:
     - 'config/environments/*.rb'
     - 'config/routes.rb'
     - 'spec/**/*.rb'
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
