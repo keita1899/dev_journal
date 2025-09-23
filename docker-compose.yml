@@ -36,6 +36,22 @@ services:
     volumes:
       - 'postgres_data:/var/lib/postgresql/data'
 
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    tty: true
+    stdin_open: true
+    environment:
+      NEXT_PUBLIC_RAILS_API_URL: http://backend:3000
+
 volumes:
   postgres_data:
   bundle_data:
