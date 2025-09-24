@@ -20,6 +20,12 @@ RSpec.describe 'Api::V1::Users', type: :request do
         user_creation_request
         expect(response).to have_http_status(:created)
       end
+
+      it 'シリアライズされたユーザー情報が返されること' do
+        user_creation_request
+        json = response.parsed_body
+        expect(json.keys).to contain_exactly('id', 'email', 'created_at', 'updated_at')
+      end
     end
 
     context 'メールアドレスが重複している場合' do
