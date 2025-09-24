@@ -6,6 +6,7 @@ import importPlugin from 'eslint-plugin-import'
 import tailwindcssPlugin from 'eslint-plugin-tailwindcss'
 import jestDomPlugin from 'eslint-plugin-jest-dom'
 import testingLibraryPlugin from 'eslint-plugin-testing-library'
+import typescriptEslint from '@typescript-eslint/eslint-plugin'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -58,10 +59,12 @@ const eslintConfig = [
     plugins: {
       'jest-dom': jestDomPlugin,
       'testing-library': testingLibraryPlugin,
+      '@typescript-eslint': typescriptEslint,
     },
     rules: {
       ...jestDomPlugin.configs.recommended.rules,
       ...testingLibraryPlugin.configs.react.rules,
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 

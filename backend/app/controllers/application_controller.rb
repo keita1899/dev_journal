@@ -1,19 +1,22 @@
 class ApplicationController < ActionController::API
-  include ActionController::MimeResponds
-
-  before_action :ensure_json_request
+  rescue_from ActionController::ParameterMissing, with: :render400
+  rescue_from ActiveRecord::RecordNotFound, with: :render404
+  rescue_from StandardError, with: :render500
 
   private
 
-  rescue_from ActiveRecord::RecordNotFound do |e|
-    render json: { error: e.message }, status: :not_found
+  def render400(error)
+    render json: { errors: [error.message] }, status: :bad_request
   end
 
-  rescue_from ActionController::ParameterMissing do |e|
-    render json: { error: e.message }, status: :unprocessable_entity
+  def render404(error)
+    render json: { errors: [error.message] }, status: :not_found
   end
 
-  def ensure_json_request
-    request.format = :json
+  def render500(error)
+    logger.error(error.message)
+    logger.error(error.backtrace.join("\n"))
+
+    render json: { errors: ['Internal Server Error'] }, status: :internal_server_error
   end
 end
