@@ -22,7 +22,8 @@ export const useSignUpForm = () => {
       router.push('/')
     } catch (err) {
       if (err instanceof AxiosError && err.response) {
-        setApiError(err.response.data.errors.join(', '))
+        const messages = err.response.data.errors.full_messages
+        setApiError(messages?.join(', ') || '予期せぬエラーが発生しました。')
       } else {
         setApiError('予期せぬエラーが発生しました。')
       }
