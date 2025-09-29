@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
   describe 'バリデーション' do
     describe 'email' do
       it { is_expected.to validate_presence_of(:email) }
-      it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+      it { is_expected.to validate_uniqueness_of(:email).case_insensitive.scoped_to(:provider) }
       it { is_expected.to allow_value("#{'a' * 243}@example.com").for(:email) }
       it { is_expected.not_to allow_value("#{'a' * 244}@example.com").for(:email) }
       it { is_expected.to allow_value('user@example.com').for(:email) }
