@@ -22,11 +22,10 @@ describe('signUp', () => {
 
     signUp(testData)
 
-    expect(mockAxiosPost).toHaveBeenCalledWith('/api/v1/users', {
-      user: {
-        email: 'test@example.com',
-        password: 'password123',
-      },
+    expect(mockAxiosPost).toHaveBeenCalledWith('api/v1/auth', {
+      email: 'test@example.com',
+      password: 'password123',
+      password_confirmation: 'password123',
     })
   })
 

@@ -44,7 +44,7 @@ describe('useSignUpForm', () => {
     const errorMessage = 'メールアドレスはすでに存在します'
     mockSignUp.mockRejectedValue(
       new AxiosError('Request failed', '400', undefined, undefined, {
-        data: { errors: [errorMessage] },
+        data: { errors: { full_messages: [errorMessage] } },
         status: 400,
       } as any)
     )
