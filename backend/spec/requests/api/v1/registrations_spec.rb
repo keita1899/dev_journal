@@ -31,7 +31,7 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
 
     context 'メールアドレスが重複している場合' do
       let(:params) do
-        { email: 'test@example.com', password: password, password_confirmation: 'invalid' }
+        { email: 'test@example.com', password: password, password_confirmation: password }
       end
 
       before do
@@ -50,7 +50,7 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
       it 'エラーメッセージが含まれていること' do
         signup_request
         json = response.parsed_body
-        expect(json['errors']['email']).to include('はすでに存在します')
+        expect(json['errors']['full_messages']).to include('メールアドレスはすでに存在します')
       end
     end
 
@@ -67,7 +67,7 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
       it 'エラーメッセージが含まれていること' do
         signup_request
         json = response.parsed_body
-        expect(json['errors']['password_confirmation']).to include('とパスワードの入力が一致しません')
+        expect(json['errors']['full_messages']).to include('パスワード（確認用）とパスワードの入力が一致しません')
       end
     end
   end
