@@ -1,10 +1,14 @@
-import { SignUpForm } from '@/features/auth/components/SignUpForm'
+'use client'
 
-const Signup = () => {
+import { SignUpForm } from '@/features/auth/components/SignUpForm'
+import { useRedirectIfAuthenticated } from '@/hooks/useRedirectIfAuthenticated'
+
+const SignUpPage = () => {
+  useRedirectIfAuthenticated('/')
   return (
     <>
       <SignUpForm />
     </>
   )
 }
-export default Signup
+export default SignUpPage
