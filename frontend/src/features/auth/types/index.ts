@@ -21,4 +21,10 @@ export const signUpSchema = z
     path: ['passwordConfirmation'],
   })
 
+export const signInSchema = signUpSchema.pick({
+  email: true,
+  password: true,
+})
+
 export type SignUpFormInput = z.infer<typeof signUpSchema>
+export type SignInFormInput = z.infer<typeof signInSchema>

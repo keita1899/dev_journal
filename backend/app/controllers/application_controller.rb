@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
+  include DeviseHackFakeSession
+
+  wrap_parameters false
 
   rescue_from ActionController::ParameterMissing, with: :render400
   rescue_from ActiveRecord::RecordNotFound, with: :render404

@@ -1,14 +1,14 @@
 'use client'
 
-import { SignUpForm } from '@/features/auth/components/SignUpForm'
+import { SignInForm } from '@/features/auth/components/SignInForm'
 import { useRedirectIfAuthenticated } from '@/hooks/useRedirectIfAuthenticated'
 
-const SignUpPage = () => {
+const SignInPage = () => {
   useRedirectIfAuthenticated('/')
   return (
     <>
-      <SignUpForm />
+      <SignInForm />
     </>
   )
 }
-export default SignUpPage
+export default SignInPage

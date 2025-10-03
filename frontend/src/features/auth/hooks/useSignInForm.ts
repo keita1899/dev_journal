@@ -7,28 +7,28 @@ import toast from 'react-hot-toast'
 
 import { saveAuthToken } from '@/lib/authToken'
 
-import { signUp } from '../api/signUp'
-import { signUpSchema, SignUpFormInput } from '../types'
+import { signIn } from '../api/signIn'
+import { signInSchema, SignInFormInput } from '../types'
 
-export const useSignUpForm = () => {
+export const useSignInForm = () => {
   const [apiError, setApiError] = useState<string>('')
   const router = useRouter()
 
-  const formMethods = useForm<SignUpFormInput>({
-    resolver: zodResolver(signUpSchema),
+  const formMethods = useForm<SignInFormInput>({
+    resolver: zodResolver(signInSchema),
   })
 
-  const onSubmit: SubmitHandler<SignUpFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<SignInFormInput> = async (data) => {
     setApiError('')
     try {
-      const res = await signUp(data)
+      const res = await signIn(data)
       saveAuthToken(res.headers)
-      toast.success('新規登録が完了しました')
+      toast.success('ログインしました')
       router.push('/')
     } catch (err) {
       if (err instanceof AxiosError && err.response) {
-        toast.error('新規登録に失敗しました')
-        const messages = err.response.data.errors.full_messages
+        toast.error('ログインに失敗しました')
+        const messages = err.response.data.errors
         setApiError(messages?.join(', ') || '予期せぬエラーが発生しました。')
       } else {
         setApiError('予期せぬエラーが発生しました。')

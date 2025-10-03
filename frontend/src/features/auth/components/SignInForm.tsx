@@ -2,23 +2,23 @@
 
 import Link from 'next/link'
 
-import { useSignUpForm } from '../hooks/useSignUpForm'
+import { useSignInForm } from '../hooks/useSignInForm'
 
-export const SignUpForm = () => {
+export const SignInForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     onSubmit,
     apiError,
-  } = useSignUpForm()
+  } = useSignInForm()
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
       <div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-10 shadow-2xl dark:bg-gray-800">
         <div>
           <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-            アカウント登録
+            ログイン
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
             日々の学びを記録しよう ✍️
@@ -67,24 +67,6 @@ export const SignUpForm = () => {
                 <p className="mt-2 text-sm text-red-600">{errors.password.message}</p>
               )}
             </div>
-
-            <div>
-              <label
-                htmlFor="passwordConfirmation"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-              >
-                パスワード（確認用）
-              </label>
-              <input
-                id="passwordConfirmation"
-                type="password"
-                {...register('passwordConfirmation')}
-                className="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 p-3 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400"
-              />
-              {errors.passwordConfirmation && (
-                <p className="mt-2 text-sm text-red-600">{errors.passwordConfirmation.message}</p>
-              )}
-            </div>
           </div>
 
           <div>
@@ -93,15 +75,18 @@ export const SignUpForm = () => {
               disabled={isSubmitting}
               className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 dark:focus:ring-offset-gray-800"
             >
-              {isSubmitting ? '登録中...' : '同意して登録する'}
+              {isSubmitting ? 'ログイン中...' : 'ログイン'}
             </button>
           </div>
           <div className="text-center text-sm">
+            <span className="text-gray-600 dark:text-gray-400">
+              アカウントをお持ちでないですか？
+            </span>{' '}
             <Link
-              href="/signin"
+              href="/signup"
               className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
             >
-              すでにアカウントをお持ちですか？
+              新規登録はこちら
             </Link>
           </div>
         </form>
