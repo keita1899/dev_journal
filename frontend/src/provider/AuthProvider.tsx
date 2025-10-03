@@ -28,11 +28,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter()
 
   const signOut = async () => {
-    await apiSignOut()
-    clearAuthToken()
-    mutate(null, false)
-    toast.success('ログアウトしました')
-    router.push('/signin')
+    try {
+      await apiSignOut()
+    } catch (error) {
+      console.error('Sign out API call failed:', error)
+      toast.error('ログアウトに失敗しました')
+    } finally {
+      clearAuthToken()
+      mutate(null, false)
+      toast.success('ログアウトしました')
+      router.push('/signin')
+    }
   }
 
   return (
