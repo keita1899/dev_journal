@@ -8,8 +8,4 @@ export type AuthContextType = {
   signOut: () => Promise<void>
 }
 
-export const AuthContext = createContext<AuthContextType>({
-  currentUser: null,
-  isLoading: false,
-  signOut: async () => {},
-})
+export const AuthContext = createContext<AuthContextType | undefined>(undefined)
