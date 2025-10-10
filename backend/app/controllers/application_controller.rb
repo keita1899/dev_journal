@@ -6,6 +6,8 @@ class ApplicationController < ActionController::API
 
   rescue_from ActionController::ParameterMissing, with: :render400
   rescue_from ActiveRecord::RecordNotFound, with: :render404
+
+  rescue_from ActiveRecord::RecordInvalid, with: :render422
   rescue_from StandardError, with: :render500
 
   private
@@ -16,6 +18,10 @@ class ApplicationController < ActionController::API
 
   def render404(error)
     render json: { errors: [error.message] }, status: :not_found
+  end
+
+  def render422(error)
+    render json: { errors: error.record.errors.full_messages }, status: :unprocessable_content
   end
 
   def render500(error)
