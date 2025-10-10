@@ -28,12 +28,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className="h-full">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} flex h-full flex-col antialiased`}
+      >
         <AuthProvider>
           <Header />
           <Toaster position="top-right" reverseOrder={false} />
-          {children}
+          <main className="grow">{children}</main>
         </AuthProvider>
       </body>
     </html>
