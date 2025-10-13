@@ -27,9 +27,9 @@ export const useDailyReportForm = ({ defaultValues, onSubmit }: UseDailyReportFo
       router.push('/calendar')
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
-        const errorMessages = error.response.data.errors as string[]
+        const errorMessages = error.response.data.errors
         console.error(errorMessages)
-        if (errorMessages.length > 0) {
+        if (Array.isArray(errorMessages) && errorMessages.length > 0) {
           toast.error(errorMessages.join('\n'))
         } else {
           toast.error('日報の保存に失敗しました')
