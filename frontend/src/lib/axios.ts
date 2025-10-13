@@ -31,7 +31,10 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (axios.isAxiosError(error) && error.response) {
-      saveAuthToken(error.response.headers as Record<string, string>)
+      const { 'access-token': accessToken, client, uid } = error.response.headers
+      if (accessToken && client && uid) {
+        saveAuthToken(error.response.headers as Record<string, string>)
+      }
     }
     return Promise.reject(error)
   }
