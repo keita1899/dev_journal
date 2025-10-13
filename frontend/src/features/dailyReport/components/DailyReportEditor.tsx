@@ -15,7 +15,9 @@ export const DailyReportEditor = () => {
     onSubmit,
   } = useDailyReportForm({ onSubmit: createDailyReport })
 
-  const errorMessages = Object.values(errors).map((error) => error?.message)
+  const errorMessages = Object.values(errors)
+    .map((error) => error?.message)
+    .filter((msg): msg is string => msg !== undefined)
 
   return (
     <form
