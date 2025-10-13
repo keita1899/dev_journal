@@ -3,10 +3,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   subject(:user) { build(:user) }
 
-  before do
-    create(:user)
-  end
-
   describe 'バリデーション' do
     describe 'email' do
       it { is_expected.to validate_presence_of(:email) }
