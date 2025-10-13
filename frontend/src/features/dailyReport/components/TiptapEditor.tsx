@@ -3,6 +3,7 @@
 import Placeholder from '@tiptap/extension-placeholder'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import { useEffect } from 'react'
 
 type TiptapEditorProps = {
   value: string
@@ -29,6 +30,13 @@ export const TiptapEditor = ({ value, onChange }: TiptapEditorProps) => {
       },
     },
   })
+
+  useEffect(() => {
+    if (!editor) return
+    if (editor.getHTML() !== value) {
+      editor.commands.setContent(value, { emitUpdate: false })
+    }
+  }, [value, editor])
 
   return (
     <div className="h-full rounded-md dark:border-slate-700">
