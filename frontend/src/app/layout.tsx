@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast'
 
 import './globals.css'
 import { Header } from '@/components/layout/Header'
+import { Nav } from '@/components/layout/Nav'
 import { AuthProvider } from '@/provider/AuthProvider'
 
 import type { Metadata } from 'next'
@@ -34,6 +35,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <Header />
+          <Nav />
           <Toaster position="top-right" reverseOrder={false} />
           <main className="grow">{children}</main>
         </AuthProvider>
