@@ -2,7 +2,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 
 import './globals.css'
-import { Header } from '@/components/Header'
+import { Header } from '@/components/layout/Header'
 import { AuthProvider } from '@/provider/AuthProvider'
 
 import type { Metadata } from 'next'

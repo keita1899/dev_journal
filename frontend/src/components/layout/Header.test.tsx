@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 
-import { useAuth } from '../hooks/useAuth'
+import { useAuth } from '../../hooks/useAuth'
 
 import { Header } from './Header'
 
