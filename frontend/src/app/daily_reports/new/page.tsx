@@ -2,7 +2,7 @@
 
 import { format, isValid, parseISO } from 'date-fns'
 import { useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
 import { DailyReportEditor } from '@/features/dailyReport/components/DailyReportEditor'
@@ -25,9 +25,9 @@ const DailyReportNewPage = () => {
   }, [parsed])
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <DailyReportEditor date={date} content="" />
-    </>
+    </Suspense>
   )
 }
 export default DailyReportNewPage
