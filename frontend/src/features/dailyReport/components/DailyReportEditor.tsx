@@ -22,9 +22,9 @@ export const DailyReportEditor = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex h-full flex-col space-y-8 rounded-lg bg-slate-50 p-6 text-slate-800 shadow-lg sm:p-8 dark:bg-slate-900 dark:text-slate-200"
+      className="flex h-full flex-col space-y-8 rounded-lg p-6 text-slate-800 shadow-lg sm:p-8 dark:text-slate-200"
     >
-      <div className="mx-auto flex size-full flex-col px-4 py-6 sm:px-6 sm:py-8 md:w-3/4">
+      <div className="mx-auto flex size-full flex-col p-4 sm:p-6 md:w-3/4">
         <div className="text-center">
           <input
             type="date"
