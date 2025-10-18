@@ -7,13 +7,24 @@ import { useDailyReportForm } from '../hooks/useDailyReportForm'
 
 import { TiptapEditor } from './TiptapEditor'
 
-export const DailyReportEditor = () => {
+type DailyReportEditorProps = {
+  date: string
+  content: string
+}
+
+export const DailyReportEditor = ({ date, content }: DailyReportEditorProps) => {
   const {
     register,
     control,
     formState: { errors, isSubmitting },
     onSubmit,
-  } = useDailyReportForm({ onSubmit: createDailyReport })
+  } = useDailyReportForm({
+    onSubmit: createDailyReport,
+    defaultValues: {
+      date: date,
+      content: content,
+    },
+  })
 
   const errorMessages = Object.values(errors)
     .map((error) => error?.message)
