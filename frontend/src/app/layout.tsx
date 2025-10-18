@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 
 import './globals.css'
+import 'react-day-picker/dist/style.css'
 import { Header } from '@/components/layout/Header'
 import { Nav } from '@/components/layout/Nav'
 import { AuthProvider } from '@/provider/AuthProvider'
