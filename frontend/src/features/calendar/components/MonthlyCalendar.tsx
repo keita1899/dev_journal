@@ -1,6 +1,6 @@
 'use client'
 
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { ja } from 'date-fns/locale'
 import { useRouter } from 'next/navigation'
 import { DayPicker } from 'react-day-picker'
@@ -42,7 +42,10 @@ export const MonthlyCalendar = ({
         showOutsideDays
         onDayClick={handleDayClick}
         modifiers={{
-          hasReport: dailyReports.map((dailyReport) => new Date(dailyReport.date)),
+          hasReport: dailyReports.map(({ date }) => {
+            const d = parseISO(date)
+            return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12)
+          }),
         }}
         modifiersClassNames={{
           hasReport: 'text-slate-800 bg-slate-300 rounded-full',
