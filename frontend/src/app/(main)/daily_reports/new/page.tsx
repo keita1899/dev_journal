@@ -1,15 +1,17 @@
 'use client'
 
-import { DailyReportEditor } from '@/features/dailyReport/components/DailyReportEditor'
+import { Suspense } from 'react'
+
+import { DailyReportWrapper } from '@/features/dailyReport/components/DailyReportWrapper'
 import { useRedirectIfUnauthenticated } from '@/hooks/useRedirectIfUnauthenticated'
 
 const DailyReportNewPage = () => {
   useRedirectIfUnauthenticated()
-
   return (
-    <>
-      <DailyReportEditor />
-    </>
+    <Suspense>
+      <DailyReportWrapper />
+    </Suspense>
   )
 }
+
 export default DailyReportNewPage

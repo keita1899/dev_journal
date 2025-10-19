@@ -8,7 +8,7 @@ export const Header = () => {
   const { currentUser, isLoading, signOut } = useAuth()
 
   return (
-    <header className="bg-white shadow-sm dark:bg-gray-800">
+    <header>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           DevJournal

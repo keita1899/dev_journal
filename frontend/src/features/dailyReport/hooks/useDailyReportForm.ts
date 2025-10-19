@@ -17,7 +17,7 @@ export const useDailyReportForm = ({ defaultValues, onSubmit }: UseDailyReportFo
   const router = useRouter()
   const formMethods = useForm<DailyReportSchema>({
     resolver: zodResolver(dailyReportSchema),
-    defaultValues: defaultValues || { content: '', date: new Date().toISOString().split('T')[0] },
+    defaultValues: defaultValues,
   })
 
   const handleFormSubmit = formMethods.handleSubmit(async (data) => {
