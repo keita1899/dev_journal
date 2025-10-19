@@ -23,8 +23,6 @@ const CalendarPage = () => {
       onError: (err) => {
         if (err.response?.status === 400) {
           toast.error('不正な日付の指定です')
-        } else if (err.response?.status === 401) {
-          toast.error('ログインが必要です')
         } else {
           toast.error('データの取得に失敗しました')
         }
