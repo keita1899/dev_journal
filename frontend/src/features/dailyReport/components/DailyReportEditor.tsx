@@ -2,10 +2,9 @@
 
 import { Controller } from 'react-hook-form'
 
+import { TiptapEditor } from '../../../components/ui/TiptapEditor'
 import { createDailyReport } from '../api/createDailyReport'
 import { useDailyReportForm } from '../hooks/useDailyReportForm'
-
-import { TiptapEditor } from './TiptapEditor'
 
 type DailyReportEditorProps = {
   date: string

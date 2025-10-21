@@ -7,22 +7,23 @@ import { useEffect } from 'react'
 
 type TiptapEditorProps = {
   value: string
+  autofocus?: boolean
   onChange: (html: string) => void
 }
 
-export const TiptapEditor = ({ value, onChange }: TiptapEditorProps) => {
+export const TiptapEditor = ({ value, autofocus = true, onChange }: TiptapEditorProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
       Placeholder.configure({
-        placeholder: '日報を作成… 「# 」で見出し、「- 」でリスト',
+        placeholder: 'テキストを入力… 「# 」で見出し、「- 」でリスト',
       }),
     ],
     content: value,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML())
     },
-    autofocus: true,
+    autofocus: autofocus,
     immediatelyRender: false,
     editorProps: {
       attributes: {
