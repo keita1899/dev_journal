@@ -59,7 +59,7 @@ export const ArticleForm = () => {
           <input
             type="text"
             {...register('title')}
-            className="w-full border-b border-gray-600 bg-transparent p-2 text-white placeholder:text-gray-400 focus:border-white focus:outline-none"
+            className="w-full border-b border-gray-600 bg-transparent p-2 text-slate-800 placeholder:text-gray-400 focus:border-gray-800 focus:outline-none dark:text-slate-200 dark:focus:border-white"
             placeholder="タイトルを入力"
             autoFocus
           />
