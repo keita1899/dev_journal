@@ -44,7 +44,7 @@ export const ArticleForm = () => {
                   }`}
                 >
                   <div
-                    className={`size-4 rounded-full bg-white shadow-md transition-transform${
+                    className={`size-4 rounded-full bg-white shadow-md transition-transform ${
                       field.value ? 'translate-x-6' : ''
                     }`}
                   />
