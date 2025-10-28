@@ -36,7 +36,7 @@ const ArticlePage = () => {
 
       <section className="rounded-lg border border-gray-100 bg-white p-4 shadow-sm">
         <h2 className="mb-1 text-sm font-semibold text-gray-600">投稿者</h2>
-        <p className="text-gray-800">{data.user.email}</p>
+        <p className="text-gray-800">{data?.user?.email}</p>
       </section>
     </div>
   )
