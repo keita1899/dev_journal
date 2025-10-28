@@ -1,5 +1,19 @@
 class Api::V1::ArticlesController < ApplicationController
-  before_action :authenticate_api_v1_user!
+  include Pagy::Backend
+
+  before_action :authenticate_api_v1_user!, only: %i[create]
+
+  def index
+    pagy, articles = pagy(Article.preload(:user).where(published: true).order(created_at: :desc),
+                          page: params[:page])
+
+    render json: {
+      articles: ArticleBlueprint.render_as_hash(articles),
+      pagy: pagy_metadata(pagy)
+    }, status: :ok
+  rescue Pagy::OverflowError
+    render json: { error: 'ページが見つかりません' }, status: :not_found
+  end
 
   def create
     article = current_api_v1_user.articles.new(article_params)
