@@ -2,6 +2,7 @@
 
 import { formatDistanceToNow } from 'date-fns'
 import { ja } from 'date-fns/locale'
+import DOMPurify from 'dompurify'
 import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 
@@ -30,7 +31,7 @@ const ArticlePage = () => {
       <article className="rounded-lg bg-white p-6 shadow-md">
         <div
           className="prose prose-gray max-w-none break-words text-gray-800"
-          dangerouslySetInnerHTML={{ __html: data.content }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.content) }}
         />
       </article>
 
