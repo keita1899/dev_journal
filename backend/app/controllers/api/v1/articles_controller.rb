@@ -16,7 +16,7 @@ class Api::V1::ArticlesController < ApplicationController
   end
 
   def show
-    article = Article.includes(:user).find(params[:id])
+    article = Article.includes(:user).where(published: true).find(params[:id])
     render json: ArticleBlueprint.render(article), status: :ok
   end
 
