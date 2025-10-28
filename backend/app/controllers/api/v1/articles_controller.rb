@@ -11,6 +11,8 @@ class Api::V1::ArticlesController < ApplicationController
       articles: ArticleBlueprint.render_as_hash(articles),
       pagy: pagy_metadata(pagy)
     }, status: :ok
+  rescue Pagy::OverflowError
+    render json: { error: 'ページが見つかりません' }, status: :not_found
   end
 
   def create
