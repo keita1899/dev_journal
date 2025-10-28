@@ -15,6 +15,11 @@ class Api::V1::ArticlesController < ApplicationController
     render json: { error: 'ページが見つかりません' }, status: :not_found
   end
 
+  def show
+    article = Article.includes(:user).find(params[:id])
+    render json: ArticleBlueprint.render(article), status: :ok
+  end
+
   def create
     article = current_api_v1_user.articles.new(article_params)
     if article.save
