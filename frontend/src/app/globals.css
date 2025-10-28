@@ -35,6 +35,16 @@ body {
   color: #adb5bd;
 }
 
+.prose h2 {
+  @apply border-b border-gray-300 pb-1 mb-2;
+}
+
+.prose ul li p,
+.prose ol li p {
+  margin-top: 0.25em !important;
+  margin-bottom: 0.25em !important;
+}
+
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
