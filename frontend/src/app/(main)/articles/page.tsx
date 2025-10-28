@@ -1,6 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 import useSWR from 'swr'
 
 import { FabButton } from '@/components/ui/FabButton'
@@ -22,6 +23,14 @@ type ArticlesResponse = {
 }
 
 const ArticlesPage = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <ArticlesContent />
+    </Suspense>
+  )
+}
+
+const ArticlesContent = () => {
   const searchParams = useSearchParams()
   const page = Number(searchParams.get('page')) || 1
   const { data, error, isLoading } = useSWR<ArticlesResponse>(
@@ -47,4 +56,5 @@ const ArticlesPage = () => {
     </div>
   )
 }
+
 export default ArticlesPage
