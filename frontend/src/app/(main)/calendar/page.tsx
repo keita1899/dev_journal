@@ -4,7 +4,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import useSWR from 'swr'
 
-import { FabButton } from '@/components/ui/FabButton'
+import { FabMenu } from '@/components/ui/FabMenu'
 import { MonthlyCalendar } from '@/features/calendar/components/MonthlyCalendar'
 import { useRedirectIfUnauthenticated } from '@/hooks/useRedirectIfUnauthenticated'
 import { fetcher } from '@/lib/fetcher'
@@ -32,7 +32,7 @@ const CalendarPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <FabButton href="/daily_reports/new" tooltip="日報を作成" />
+      <FabMenu />
       <MonthlyCalendar
         dailyReports={dailyReports ?? []}
         currentMonth={currentMonth}

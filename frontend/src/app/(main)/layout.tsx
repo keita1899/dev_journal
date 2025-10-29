@@ -5,7 +5,9 @@ import '../globals.css'
 import 'react-day-picker/dist/style.css'
 import { Header } from '@/components/layout/Header'
 import { Nav } from '@/components/layout/Nav'
+import { MemoModalForm } from '@/features/memo/components/MemoModalForm'
 import { AuthProvider } from '@/provider/AuthProvider'
+import { ModalProvider } from '@/provider/ModalProvider'
 
 import type { Metadata } from 'next'
 
@@ -35,10 +37,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} flex h-full flex-col antialiased`}
       >
         <AuthProvider>
-          <Header />
-          <Nav />
-          <Toaster position="top-right" reverseOrder={false} />
-          <main className="grow">{children}</main>
+          <ModalProvider>
+            <Header />
+            <Nav />
+            <Toaster position="top-right" reverseOrder={false} />
+            <main className="grow">{children}</main>
+            <MemoModalForm />
+          </ModalProvider>
         </AuthProvider>
       </body>
     </html>

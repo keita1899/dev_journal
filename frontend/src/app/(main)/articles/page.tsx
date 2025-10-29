@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import useSWR from 'swr'
 
-import { FabButton } from '@/components/ui/FabButton'
+import { FabMenu } from '@/components/ui/FabMenu'
 import { Loading } from '@/components/ui/Loading'
 import { PageIndicator } from '@/components/ui/PageIndicator'
 import { Pagination } from '@/components/ui/Pagination'
@@ -43,7 +43,7 @@ const ArticlesContent = () => {
 
   return (
     <div className="container mx-auto max-w-2xl px-4 py-8">
-      <FabButton href="/articles/new" tooltip="記事を作成" />
+      <FabMenu />
       <PageIndicator current={data?.pagy.page ?? 1} total={data?.pagy.pages ?? 1} />
       <div className="mt-6 grid gap-4">
         {data?.articles.map((article: Article) => (
