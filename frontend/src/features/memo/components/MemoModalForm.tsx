@@ -38,6 +38,7 @@ export const MemoModalForm = () => {
       toast.success('メモを作成しました')
     } catch (error) {
       console.error('メモ作成エラー:', error)
+      toast.error('メモの作成に失敗しました')
     } finally {
       setIsSubmitting(false)
     }
