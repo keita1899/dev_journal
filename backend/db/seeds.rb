@@ -23,5 +23,12 @@ Rails.logger.debug { "👤 User created: #{user.email}" }
   )
 end
 
+100.times do
+  Memo.create!(
+    content: Faker::Lorem.paragraphs(number: 4).join("\n\n"),
+    user: user
+  )
+end
+
 Rails.logger.debug { "📝 100 articles created for #{user.name}" }
 Rails.logger.debug '✅ Seeding completed!'
