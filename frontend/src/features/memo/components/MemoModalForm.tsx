@@ -73,7 +73,7 @@ export const MemoModalForm = () => {
             )}
             <textarea
               {...register('content')}
-              className=" w-full min-h-[150px] resize-none p-2 text-gray-800 focus:outline-none overflow-hidden"
+              className=" min-h-[150px] w-full resize-none overflow-hidden p-2 text-gray-800 focus:outline-none"
               placeholder="メモを入力..."
               autoFocus
               onInput={(e) => {
@@ -84,7 +84,7 @@ export const MemoModalForm = () => {
             />
           </div>
 
-          <div className="flex justify-between gap-2 mt-4">
+          <div className="mt-4 flex justify-between gap-2">
             <div
               className={`mb-1 text-right text-sm ${
                 contentValue.length > MAX_LENGTH ? 'text-red-500' : 'text-gray-500'
