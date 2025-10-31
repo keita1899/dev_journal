@@ -11,7 +11,6 @@ import { Memo } from '@/features/memo/types/memo'
 import { useRedirectIfUnauthenticated } from '@/hooks/useRedirectIfUnauthenticated'
 import { fetcher } from '@/lib/fetcher'
 
-
 type MemosResponse = {
   memos: Memo[]
   pagy: {
@@ -21,7 +20,7 @@ type MemosResponse = {
 
 const MemosPage = () => {
   useRedirectIfUnauthenticated()
-  
+
   const getKey = (pageIndex: number, previousPageData: MemosResponse | null) => {
     if (previousPageData && previousPageData.pagy.next === null) return null
     if (!previousPageData) return `/api/v1/memos?page=1`
@@ -58,7 +57,13 @@ const MemosPage = () => {
   return (
     <>
       <FabMenu />
-      <div className="mx-auto max-w-lg divide-y divide-gray-500 p-4">
+      <div className={`mx-auto max-w-lg p-4 ${memos.length > 0 ? 'divide-y divide-gray-500' : ''}`}>
+        {memos.length === 0 && !isLoading && (
+          <div className="py-8 text-center text-gray-500">
+            <p>メモがまだありません</p>
+            <p className="mt-2 text-sm">右下のボタンから新しいメモを作成できます</p>
+          </div>
+        )}
         {memos.map((memo) => (
           <MemoCard key={memo.id} memo={memo} />
         ))}
