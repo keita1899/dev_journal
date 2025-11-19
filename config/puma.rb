@@ -23,8 +23,6 @@ if rails_env == 'production'
   worker_count = Integer(ENV.fetch('WEB_CONCURRENCY', 1))
   if worker_count > 1
     workers worker_count
-  else
-    preload_app!
   end
 end
 # Specifies the `worker_timeout` threshold that Puma will use to wait before
