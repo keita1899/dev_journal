@@ -1,2 +1,152 @@
-<h1>ようこそ DevJournal へ！</h1>
-<p>Rails 単体での表示テストページです。</p>
+<div class="bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] text-gray-100 selection:bg-indigo-500 selection:text-white">
+  
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    
+    <div class="absolute top-0 left-1/2 w-[500px] h-[500px] bg-indigo-600 rounded-full mix-blend-screen filter blur-[100px] opacity-20 pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-900 rounded-full mix-blend-screen filter blur-[80px] opacity-20 -z-10 pointer-events-none"></div>
+
+    <div class="relative text-center px-4 max-w-4xl mx-auto z-10">
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight leading-tight">
+        Dev<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Journal</span>
+      </h1>
+      
+      <p class="text-xl md:text-2xl text-gray-300 mb-12 font-light leading-relaxed max-w-2xl mx-auto">
+        GitHubの活動と日報をシームレスに連携。<br class="hidden md:inline">
+        <span class="text-white font-medium border-b border-indigo-500/50">「昨日の自分より成長したこと」</span>を、記録に残そう。
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-5 justify-center">
+        <%= button_to 'users_guest_sign_in_path', method: :post, data: { turbo: false }, class: "flex items-center justify-center w-full sm:w-auto px-10 py-5 bg-green-600 hover:bg-green-500 text-white text-lg font-bold rounded-xl shadow-lg shadow-green-900/40 transition transform hover:-translate-y-1 border border-green-500 ring-4 ring-green-900/20" do %>
+          🚀 ゲストとして試す
+        <% end %>
+
+        <%= button_to 'user_github_omniauth_authorize_path', method: :post, data: { turbo: false }, class: "flex items-center justify-center w-full sm:w-auto px-10 py-5 bg-gray-800 hover:bg-gray-700 text-white text-lg font-bold rounded-xl shadow-lg transition transform hover:-translate-y-1 border border-gray-600" do %>
+          <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          GitHubでログイン
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="absolute bottom-10 animate-bounce text-gray-500">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+    </div>
+  </section>
+
+  <section class="py-24 bg-gray-900 border-t border-gray-800">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-20">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">エンジニアの成長を加速させる<br class="md:hidden">4つの機能</h2>
+        <p class="text-gray-400 text-lg">日々のインプットとアウトプットを、これ1つで完結。</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="p-8 bg-gray-800 rounded-2xl border border-gray-700 hover:border-indigo-500 hover:shadow-xl hover:shadow-indigo-900/20 transition duration-300 group">
+          <div class="w-14 h-14 bg-gray-700 text-indigo-400 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-100 mb-3 text-center">日報作成</h3>
+          <p class="text-gray-400 text-sm text-center leading-relaxed">
+            毎日の学びをMarkdownで記録。<br>コードブロックも美しくシンタックスハイライトされます。
+          </p>
+        </div>
+
+        <div class="p-8 bg-gray-800 rounded-2xl border border-gray-700 hover:border-green-500 hover:shadow-xl hover:shadow-green-900/20 transition duration-300 group">
+          <div class="w-14 h-14 bg-gray-700 text-green-400 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:bg-green-600 group-hover:text-white transition-colors">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-100 mb-3 text-center">技術記事・メモ</h3>
+          <p class="text-gray-400 text-sm text-center leading-relaxed">
+            エラー解決ログや技術的な知見をストック。強力な検索機能で過去の知見を即座に呼び出せます。
+          </p>
+        </div>
+
+        <div class="p-8 bg-gray-800 rounded-2xl border border-gray-700 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-900/20 transition duration-300 group">
+          <div class="w-14 h-14 bg-gray-700 text-blue-400 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:bg-blue-600 group-hover:text-white transition-colors">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-100 mb-3 text-center">テンプレート</h3>
+          <p class="text-gray-400 text-sm text-center leading-relaxed">
+            「YWT」や「KPT」など、振り返りの型を登録。毎日の入力を効率化し、習慣化をサポートします。
+          </p>
+        </div>
+
+        <div class="p-8 bg-gray-800 rounded-2xl border border-gray-700 hover:border-purple-500 hover:shadow-xl hover:shadow-purple-900/20 transition duration-300 group">
+          <div class="w-14 h-14 bg-gray-700 text-purple-400 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:bg-purple-600 group-hover:text-white transition-colors">
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-100 mb-3 text-center">GitHub連携</h3>
+          <p class="text-gray-400 text-sm text-center leading-relaxed">
+            その日のCommitやPRを自動取得。<br>「何をしたっけ？」と思い出す時間をゼロにします。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-gradient-to-b from-gray-900 to-gray-800 overflow-hidden relative">
+    <div class="absolute top-1/2 right-0 w-[600px] h-[600px] bg-indigo-900/20 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
+
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-16 relative z-10">
+      <div class="md:w-1/2">
+        <span class="text-indigo-400 font-bold tracking-widest uppercase text-xs border border-indigo-500/30 px-3 py-1.5 rounded-full bg-indigo-900/20">Seamless Integration</span>
+        <h2 class="text-3xl md:text-5xl font-bold mt-6 mb-8 leading-tight text-white">
+          「今日、何やったっけ？」<br>
+          <span class="text-gray-400">その悩みはもう不要です。</span>
+        </h2>
+        <p class="text-gray-300 text-lg leading-relaxed mb-8">
+          ボタンひとつで、あなたのGitHubアクティビティ（Commit, Issue, PR）を取得し、日報に自動挿入します。
+          <br>正確な作業ログに基づいた、質の高い振り返りを体験してください。
+        </p>
+        
+        <div class="bg-gray-900 rounded-xl p-6 border border-gray-700 shadow-2xl backdrop-blur-sm bg-opacity-80">
+          <div class="flex items-center gap-3 text-sm text-gray-400 mb-5 border-b border-gray-800 pb-3">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </span>
+            2025/11/21 の活動ログ
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4 p-3 hover:bg-gray-800 rounded-lg transition cursor-default border border-transparent hover:border-gray-700">
+              <span class="bg-purple-900/40 text-purple-300 text-xs px-2.5 py-1 rounded border border-purple-500/30 mt-0.5 font-mono">Merged</span>
+              <p class="text-sm text-gray-200">Feat: ゲストログイン機能の実装 (#42)</p>
+            </div>
+            <div class="flex items-start gap-4 p-3 hover:bg-gray-800 rounded-lg transition cursor-default border border-transparent hover:border-gray-700">
+              <span class="bg-blue-900/40 text-blue-300 text-xs px-2.5 py-1 rounded border border-blue-500/30 mt-0.5 font-mono">Commit</span>
+              <p class="text-sm text-gray-200">Fix: CIの環境変数設定を修正</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="md:w-1/2 relative w-full">
+        <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur opacity-30"></div>
+        <div class="relative bg-gray-800 rounded-2xl border border-gray-700 p-2 shadow-2xl">
+            <div class="bg-gray-900 rounded-xl aspect-video flex flex-col items-center justify-center text-gray-600 border border-gray-800">
+              <svg class="w-16 h-16 mb-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+              <span class="text-sm font-mono tracking-wider">App Screenshot Area</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-gray-900 border-t border-gray-800 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-green-900/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 text-center max-w-4xl relative z-10">
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">開発の記録を、未来の資産に。</h2>
+      <p class="text-gray-400 mb-12 text-xl max-w-2xl mx-auto">
+        DevJournalは、エンジニアによる、エンジニアのための日報アプリです。<br>
+        まずはゲストログインで、機能をお試しください。
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-5 justify-center">
+         <%= button_to 'users_guest_sign_in_path', method: :post, data: { turbo: false }, class: "flex items-center justify-center w-full sm:w-auto px-12 py-5 bg-green-600 hover:bg-green-500 text-white text-lg font-bold rounded-xl shadow-xl shadow-green-900/40 transition transform hover:-translate-y-1 border border-green-500 ring-4 ring-green-900/20" do %>
+          🚀 ゲストとして試す
+        <% end %>
+      </div>
+    </div>
+  </section>
+</div>
