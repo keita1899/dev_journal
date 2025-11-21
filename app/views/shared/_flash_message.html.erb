@@ -1,0 +1,16 @@
+<% alert_classes = {
+  notice: "bg-green-100 border-green-500 text-green-700",
+  alert: "bg-red-100 border-red-500 text-red-700",
+  error: "bg-red-100 border-red-500 text-red-700",
+  danger: "bg-red-100 border-red-500 text-red-700"
+} %>
+
+<div class="fixed top-20 left-0 right-0 z-50 flex flex-col items-center gap-2 px-4 pointer-events-none">
+  <% flash.each do |message_type, message| %>
+    <% classes = alert_classes[message_type.to_sym] || "bg-blue-100 border-blue-500 text-blue-700" %>
+    
+    <div class="<%= classes %> border-l-4 p-4 rounded shadow-lg min-w-[300px] text-center animate-fade-in-down pointer-events-auto relative" role="alert">
+      <p class="font-bold"><%= message %></p>
+    </div>
+  <% end %>
+</div>
