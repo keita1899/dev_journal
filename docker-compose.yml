@@ -23,6 +23,8 @@ services:
       POSTGRES_HOST: db
     depends_on:
       - db
+    env_file:
+      - .env
 
 volumes:
   postgres_data:
