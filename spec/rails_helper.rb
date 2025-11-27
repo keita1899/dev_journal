@@ -70,6 +70,14 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include FactoryBot::Syntax::Methods
+
+  config.before do
+    OmniAuth.config.test_mode = true
+  end
+
+  config.after do
+    OmniAuth.config.mock_auth[:github] = nil
+  end
 end
 
 Shoulda::Matchers.configure do |config|
