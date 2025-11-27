@@ -59,5 +59,8 @@ jobs:
           bin/rails db:create
           bin/rails db:migrate
 
+      - name: Build Tailwind Assets
+        run: bin/rails tailwindcss:build
+
       - name: Run RSpec
         run: bundle exec rspec
