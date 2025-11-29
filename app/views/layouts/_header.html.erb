@@ -11,7 +11,7 @@
 
         <div class="flex items-center gap-4 border-l border-gray-700 pl-4">
           <span class="text-sm text-indigo-400 font-medium hidden sm:block">
-            <%= current_user.email %>
+            <%= current_user.nickname %>
           </span>
           
           <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "text-sm text-gray-400 hover:text-white transition bg-transparent border-none p-0 m-0" %>
