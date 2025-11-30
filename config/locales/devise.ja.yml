@@ -1,0 +1,5 @@
+ja:
+  devise:
+    omniauth_callbacks:
+      failure:
+        email_missing: "GitHubアカウントからメールアドレスを取得できませんでした。"
