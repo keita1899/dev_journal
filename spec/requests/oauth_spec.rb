@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe 'OAuth Login', type: :request do
   describe 'GitHubログイン' do
     before do
-      # 成功パターンのMockをセット
       OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
                                                                     provider: 'github',
                                                                     uid: '12345678',
                                                                     info: {
-                                                                      email: 'oauth_test@example.com'
+                                                                      email: 'oauth_test@example.com',
+                                                                      nickname: 'oauth_test_user'
                                                                     }
                                                                   })
     end
@@ -19,6 +19,7 @@ RSpec.describe 'OAuth Login', type: :request do
       it 'ユーザーが新規作成されること' do
         expect(User.count).to eq 1
         expect(User.last.email).to eq 'oauth_test@example.com'
+        expect(User.last.nickname).to eq 'oauth_test_user'
       end
 
       it 'トップページへリダイレクトすること' do
