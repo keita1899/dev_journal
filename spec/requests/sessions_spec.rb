@@ -5,7 +5,7 @@ RSpec.describe 'Sessions', type: :request do
 
   include Devise::Test::IntegrationHelpers
 
-  context '未ログインの場合' do
+  context 'ログイン済みの場合' do
     before do
       sign_in user
     end
@@ -21,8 +21,8 @@ RSpec.describe 'Sessions', type: :request do
     end
   end
 
-  context 'ログイン済みの場合' do
-    it '既にログアウトしている場合にログアウト処理を実行してもエラーにならないこと' do
+  context '未ログインの場合' do
+    it 'ログアウト処理を実行してもエラーにならないこと' do
       delete destroy_user_session_path
 
       follow_redirect!
