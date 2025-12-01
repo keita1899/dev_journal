@@ -18,7 +18,7 @@
         </div>
 
       <% else %>
-        <%= button_to 'users_guest_sign_in_path', method: :post, data: { turbo: false }, class: "text-sm bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded transition font-bold shadow-lg shadow-green-900/20" do %>
+        <%= button_to users_guest_sign_in_path, method: :post, data: { turbo: false }, class: "text-sm bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded transition font-bold shadow-lg shadow-green-900/20" do %>
           ゲストログイン
         <% end %>
 
