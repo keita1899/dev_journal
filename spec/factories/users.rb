@@ -8,5 +8,12 @@ FactoryBot.define do
       sequence(:nickname) { |n| "user_handle_#{n}" }
       sequence(:uid) { |n| "uid#{n}" }
     end
+
+    trait :guest do
+      email { 'guest@example.com' }
+      nickname { 'ゲスト' }
+      provider { 'guest' }
+      uid { 'guest' }
+    end
   end
 end

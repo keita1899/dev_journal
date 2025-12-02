@@ -44,4 +44,27 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '.guest' do
+    context 'ゲストユーザーがDBに存在しない場合' do
+      it '新規ユーザーを作成し、ゲスト用の属性が設定されること' do
+        expect { described_class.guest }.to change(described_class, :count).by(1)
+
+        guest_user = described_class.guest
+        expect(guest_user.email).to eq('guest@example.com')
+        expect(guest_user.nickname).to eq('ゲスト')
+        expect(guest_user.provider).to eq('guest')
+      end
+    end
+
+    context 'ゲストユーザーがDBに存在する場合' do
+      let!(:existing_guest) { create(:user, :guest) }
+
+      it '新規ユーザーを作成せず、既存のユーザーを返すこと' do
+        expect { described_class.guest }.not_to change(described_class, :count)
+
+        expect(described_class.guest).to eq(existing_guest)
+      end
+    end
+  end
 end

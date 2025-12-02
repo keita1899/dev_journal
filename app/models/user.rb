@@ -13,4 +13,13 @@ class User < ApplicationRecord
       user.nickname = auth.info.nickname
     end
   end
+
+  def self.guest
+    find_or_create_by(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.nickname = 'ゲスト'
+      user.provider = 'guest'
+      user.uid = 'guest'
+    end
+  end
 end
