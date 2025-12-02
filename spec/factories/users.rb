@@ -13,7 +13,7 @@ FactoryBot.define do
       email { 'guest@example.com' }
       nickname { 'ゲスト' }
       provider { 'guest' }
-      uid { 'guest_uid_for_demo' }
+      uid { 'guest' }
     end
   end
 end

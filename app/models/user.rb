@@ -19,7 +19,7 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64
       user.nickname = 'ゲスト'
       user.provider = 'guest'
-      user.uid = SecureRandom.uuid
+      user.uid = 'guest'
     end
   end
 end
