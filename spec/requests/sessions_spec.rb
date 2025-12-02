@@ -37,7 +37,7 @@ RSpec.describe 'Sessions', type: :request do
       it 'ゲストログインが成功し、フラッシュメッセージが表示されること' do
         expect { post users_guest_sign_in_path }.to change(User, :count).by(1)
         follow_redirect!
-        expect(response.body).to include(I18n.t('devise.sessions.guest_welcome'))
+        expect(response.body).to include(I18n.t('devise.sessions.guest.sign_in'))
         expect(User.last.email).to eq 'guest@example.com'
         expect(User.last.nickname).to eq 'ゲスト'
       end
@@ -56,7 +56,7 @@ RSpec.describe 'Sessions', type: :request do
       it '新規ユーザーを作成せず、既存のユーザーでログインすること' do
         expect(User.count).to eq initial_user_count
 
-        expect(response.body).to include(I18n.t('devise.sessions.guest_welcome'))
+        expect(response.body).to include(I18n.t('devise.sessions.guest.sign_in'))
       end
     end
   end

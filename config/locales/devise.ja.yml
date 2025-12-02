@@ -4,4 +4,6 @@ ja:
       failure:
         email_missing: "GitHubアカウントからメールアドレスを取得できませんでした。"
     sessions:
-      guest_welcome: "ゲストユーザーとしてログインしました。"
+      guest:
+        sign_in: "ゲストユーザーとしてログインしました。"
+        failure: "ゲストユーザーの作成に失敗しました。"
