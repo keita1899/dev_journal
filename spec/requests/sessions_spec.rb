@@ -44,17 +44,15 @@ RSpec.describe 'Sessions', type: :request do
     end
 
     context 'ゲストユーザーが既に存在する場合' do
-      let(:existing_guest) { create(:user, :guest) }
-      let(:initial_user_count) { User.count }
-
       before do
-        delete destroy_user_session_path
-        post users_guest_sign_in_path
-        follow_redirect!
+        create(:user, :guest)
       end
 
       it '新規ユーザーを作成せず、既存のユーザーでログインすること' do
-        expect(User.count).to eq initial_user_count
+        initial_count = User.count
+        post users_guest_sign_in_path
+        expect(User.count).to eq initial_count
+        follow_redirect!
 
         expect(response.body).to include(I18n.t('devise.sessions.guest.sign_in'))
       end
