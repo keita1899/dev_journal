@@ -1,6 +1,8 @@
 class DailyReportsController < ApplicationController
   before_action :authenticate_user!
 
+  def index; end
+
   def new
     @daily_report = current_user.daily_reports.build
   end
