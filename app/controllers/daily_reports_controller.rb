@@ -12,7 +12,7 @@ class DailyReportsController < ApplicationController
     if @daily_report.save
       redirect_to daily_reports_path, notice: t('.success')
     else
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
