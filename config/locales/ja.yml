@@ -2,6 +2,20 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      daily_report: 日報
     attributes:
       user:
         email: メールアドレス
+      daily_report:
+        date: 日付
+        content: 内容
+    errors:
+      models:
+        daily_report:
+          attributes:
+            date:
+              less_than_or_equal_to: "は、未来の日付として登録できません"
+  daily_reports:
+    create:
+      success: "日報を作成しました"
+      failure: "日報の作成に失敗しました"
