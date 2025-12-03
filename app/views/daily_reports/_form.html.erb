@@ -1,0 +1,30 @@
+<%= form_with model: daily_report, local: true, data: { turbo: false }, class: "space-y-6" do |f| %>
+  
+  <%= render 'shared/error_messages', model: daily_report, subject: daily_report.new_record? ? '日報の作成' : '日報の更新' %>
+
+  <div>
+    <%= f.label :date, "日付", class: "block text-sm font-medium text-gray-400 mb-1" %>
+    
+    <% error_class = f.object.errors[:date].present? ? 'border-red-500' : 'border-gray-700' %>
+    
+    <%= f.date_field :date, value: Date.today, 
+      class: "w-full p-3 bg-gray-800 #{error_class} rounded-lg text-white focus:ring-indigo-500 focus:border-indigo-500" %>
+
+    <%= render 'shared/field_error', f: f, field: :date %>
+  </div>
+
+  <div>
+    <%= f.label :content, "活動内容・振り返り (Markdown対応)", class: "block text-sm font-medium text-gray-400 mb-1" %>
+    
+    <% error_class = f.object.errors[:content].present? ? 'border-red-500' : 'border-gray-700' %>
+    
+    <%= f.text_area :content, rows: 15, required: true, 
+      class: "w-full p-3 bg-gray-800 #{error_class} rounded-lg text-white focus:ring-indigo-500 focus:border-indigo-500 resize-y" %>
+
+    <%= render 'shared/field_error', f: f, field: :content %>
+  </div>
+
+  <div class="flex justify-end pt-4 border-t border-gray-700">
+    <%= f.submit "日報を保存", data: { turbo_submits: true }, class: "px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition duration-150 cursor-pointer shadow-lg shadow-indigo-900/30" %>
+  </div>
+<% end %>
