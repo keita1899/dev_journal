@@ -1,6 +1,6 @@
 <%= form_with model: daily_report, local: true, data: { turbo: false }, class: "space-y-6" do |f| %>
   
-  <%= render 'shared/error_messages', model: daily_report, subject: daily_report.new_record? ? '日報の作成' : '日報の更新' %>
+  <%= render 'shared/error_messages', model: daily_report, subject: '日報の保存' %>
 
   <div>
     <%= f.label :date, "日付", class: "block text-sm font-medium text-gray-400 mb-1" %>

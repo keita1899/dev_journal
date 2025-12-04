@@ -20,4 +20,4 @@ ja:
   daily_reports:
     create:
       success: "日報を作成しました"
-      failure: "日報の作成に失敗しました"
+      failure: "日報の保存に失敗しました"
