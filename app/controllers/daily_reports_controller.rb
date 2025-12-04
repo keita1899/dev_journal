@@ -4,7 +4,7 @@ class DailyReportsController < ApplicationController
   def index; end
 
   def new
-    @daily_report = current_user.daily_reports.build
+    @daily_report = current_user.daily_reports.build(date: Date.current)
   end
 
   def create

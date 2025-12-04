@@ -7,7 +7,7 @@
     
     <% error_class = f.object.errors[:date].present? ? 'border-red-500' : 'border-gray-700' %>
     
-    <%= f.date_field :date, value: Date.current, 
+    <%= f.date_field :date,
       class: "w-full p-3 bg-gray-800 #{error_class} rounded-lg text-white focus:ring-indigo-500 focus:border-indigo-500" %>
 
     <%= render 'shared/field_error', f: f, field: :date %>
