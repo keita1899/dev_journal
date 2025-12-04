@@ -1,0 +1,5 @@
+<% if f.object.errors[field].present? %>
+  <p class="text-red-400 text-sm mt-1">
+    <%= f.object.errors.full_messages_for(field).join(", ") %>
+  </p>
+<% end %>
