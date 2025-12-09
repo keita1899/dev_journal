@@ -7,6 +7,8 @@ class DailyReportsController < ApplicationController
     @daily_report = current_user.daily_reports.build(date: Date.current)
   end
 
+  def edit; end
+
   def create
     @daily_report = current_user.daily_reports.build(daily_report_params)
     if @daily_report.save
