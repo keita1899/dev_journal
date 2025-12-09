@@ -12,7 +12,7 @@ class DailyReportsController < ApplicationController
   end
 
   def new
-    @daily_report = current_user.daily_reports.build(date: Date.current)
+    @daily_report = current_user.daily_reports.build(date: params[:date] || Date.current)
   end
 
   def edit; end
