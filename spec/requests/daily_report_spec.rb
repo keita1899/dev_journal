@@ -4,12 +4,7 @@ RSpec.describe 'DailyReports', type: :request do
   include Devise::Test::IntegrationHelpers
 
   let(:user) { create(:user) }
-  let(:valid_params) do
-    { daily_report: attributes_for(:daily_report, date: Date.current) }
-  end
-  let(:invalid_params) do
-    { daily_report: attributes_for(:daily_report, content: nil) }
-  end
+  let!(:daily_report) { create(:daily_report, user: user, content: 'Original content') }
 
   describe 'GET #index' do
     context 'ログイン済みの場合' do
@@ -90,6 +85,13 @@ RSpec.describe 'DailyReports', type: :request do
   end
 
   describe 'POST #create' do
+    let(:valid_params) do
+      { daily_report: attributes_for(:daily_report, date: Date.current) }
+    end
+    let(:invalid_params) do
+      { daily_report: attributes_for(:daily_report, content: nil) }
+    end
+
     context 'ログイン済みの場合' do
       before { sign_in user }
 
@@ -120,6 +122,66 @@ RSpec.describe 'DailyReports', type: :request do
         expect do
           post daily_reports_path, params: valid_params
         end.not_to change(DailyReport, :count)
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
+
+  describe 'GET #edit' do
+    context 'ログイン済みの場合' do
+      before { sign_in user }
+
+      it '正常にレスポンスを返し、' do
+        get edit_daily_report_path(daily_report)
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include(daily_report.content)
+        expect(response.body).to include(daily_report.date.to_s)
+      end
+    end
+
+    context '未ログインの場合' do
+      it 'トップページにリダイレクトされること' do
+        get edit_daily_report_path(daily_report)
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    let(:valid_params) do
+      { daily_report: attributes_for(:daily_report, content: 'Updated content') }
+    end
+    let(:invalid_params) do
+      { daily_report: attributes_for(:daily_report, content: nil) }
+    end
+
+    context 'ログイン済みの場合' do
+      before { sign_in user }
+
+      context 'パラメータが有効な場合' do
+        it '日報が更新され、カレンダーページにリダイレクトすること' do
+          patch daily_report_path(daily_report), params: valid_params
+          daily_report.reload
+          expect(daily_report.content).to eq('Updated content')
+
+          expect(response).to redirect_to(daily_reports_path)
+        end
+      end
+
+      context 'パラメータが無効な場合' do
+        it '日報が更新されず、フォームが再表示されること' do
+          patch daily_report_path(daily_report), params: invalid_params
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.body).to include(I18n.t('daily_reports.update.failure'))
+        end
+      end
+    end
+
+    context '未ログインの場合' do
+      it '日報が更新されず、トップページにリダイレクトされること' do
+        patch daily_report_path(daily_report), params: { daily_report: valid_params }
+        expect(daily_report.reload.content).to eq('Original content')
 
         expect(response).to redirect_to(root_path)
       end
