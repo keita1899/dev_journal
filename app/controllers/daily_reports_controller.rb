@@ -15,7 +15,9 @@ class DailyReportsController < ApplicationController
     @daily_report = current_user.daily_reports.build(date: params[:date] || Date.current)
   end
 
-  def edit; end
+  def edit
+    @daily_report = current_user.daily_reports.find(params[:id])
+  end
 
   def create
     @daily_report = current_user.daily_reports.build(daily_report_params)
@@ -23,6 +25,15 @@ class DailyReportsController < ApplicationController
       redirect_to daily_reports_path, notice: t('.success')
     else
       render :new, status: :unprocessable_content
+    end
+  end
+
+  def update
+    @daily_report = current_user.daily_reports.find(params[:id])
+    if @daily_report.update(daily_report_params)
+      redirect_to daily_reports_path, notice: t('.success')
+    else
+      render :edit, status: :unprocessable_content
     end
   end
 

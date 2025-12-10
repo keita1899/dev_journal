@@ -21,3 +21,6 @@ ja:
     create:
       success: "日報を作成しました"
       failure: "日報の保存に失敗しました"
+    update:
+      success: "日報を更新しました"
+      failure: "日報の保存に失敗しました"
