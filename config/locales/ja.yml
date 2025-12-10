@@ -24,3 +24,6 @@ ja:
     update:
       success: "日報を更新しました"
       failure: "日報の保存に失敗しました"
+    destroy:
+      success: "日報を削除しました"
+      failure: "日報の削除に失敗しました"

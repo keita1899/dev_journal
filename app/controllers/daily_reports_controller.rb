@@ -37,6 +37,14 @@ class DailyReportsController < ApplicationController
     end
   end
 
+  def destroy
+    @daily_report = current_user.daily_reports.find(params[:id])
+
+    @daily_report.destroy!
+
+    redirect_to daily_reports_path, notice: t('.success'), status: :see_other
+  end
+
   private
 
   def daily_report_params
