@@ -138,6 +138,14 @@ RSpec.describe 'DailyReports', type: :request do
         expect(response.body).to include(daily_report.content)
         expect(response.body).to include(daily_report.date.to_s)
       end
+
+      it '他のユーザーの日報にアクセスすると404エラーが発生すること' do
+        other_user = create(:user)
+        other_report = create(:daily_report, user: other_user)
+
+        get edit_daily_report_path(other_report)
+        expect(response).to have_http_status(:not_found)
+      end
     end
 
     context '未ログインの場合' do
@@ -166,6 +174,15 @@ RSpec.describe 'DailyReports', type: :request do
           expect(daily_report.content).to eq('Updated content')
 
           expect(response).to redirect_to(daily_reports_path)
+        end
+
+        it '他のユーザーの日報を更新しようとすると404エラーが発生すること' do
+          other_user = create(:user)
+          other_report = create(:daily_report, user: other_user, content: 'Original')
+          patch daily_report_path(other_report), params: valid_params
+
+          expect(response).to have_http_status(:not_found)
+          expect(other_report.reload.content).to eq('Original')
         end
       end
 
