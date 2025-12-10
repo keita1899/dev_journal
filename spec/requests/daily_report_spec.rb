@@ -132,7 +132,7 @@ RSpec.describe 'DailyReports', type: :request do
     context 'ログイン済みの場合' do
       before { sign_in user }
 
-      it '正常にレスポンスを返し、' do
+      it '正常にレスポンスを返し、既存の内容と日付が表示されること' do
         get edit_daily_report_path(daily_report)
         expect(response).to have_http_status(:success)
         expect(response.body).to include(daily_report.content)
@@ -180,7 +180,7 @@ RSpec.describe 'DailyReports', type: :request do
 
     context '未ログインの場合' do
       it '日報が更新されず、トップページにリダイレクトされること' do
-        patch daily_report_path(daily_report), params: { daily_report: valid_params }
+        patch daily_report_path(daily_report), params: valid_params
         expect(daily_report.reload.content).to eq('Original content')
 
         expect(response).to redirect_to(root_path)
