@@ -204,4 +204,34 @@ RSpec.describe 'DailyReports', type: :request do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'ログイン済みの場合' do
+      before { sign_in user }
+
+      it '日報が削除され、カレンダーページにリダイレクトすること' do
+        expect do
+          delete daily_report_path(daily_report)
+        end.to change(DailyReport, :count).by(-1)
+        expect(response).to have_http_status(:see_other)
+        expect(response).to redirect_to(daily_reports_path)
+      end
+
+      it '他のユーザーの日報を削除しようとすると404エラーが発生すること' do
+        other_user = create(:user)
+        other_report = create(:daily_report, user: other_user)
+        expect { delete daily_report_path(other_report) }.not_to change(DailyReport, :count)
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context '未ログインの場合' do
+      it '日報が削除されず、トップページにリダイレクトされること' do
+        expect do
+          delete daily_report_path(daily_report)
+        end.not_to change(DailyReport, :count)
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
 end
