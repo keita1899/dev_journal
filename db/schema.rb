@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_02_133821) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_10_101653) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "articles", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.text "content", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "published_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["published_at"], name: "index_articles_on_published_at"
+    t.index ["status"], name: "index_articles_on_status"
+    t.index ["user_id"], name: "index_articles_on_user_id"
+  end
 
   create_table "daily_reports", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -40,5 +53,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_02_133821) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "articles", "users"
   add_foreign_key "daily_reports", "users"
 end

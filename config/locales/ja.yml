@@ -3,12 +3,17 @@ ja:
     models:
       user: ユーザー
       daily_report: 日報
+      articles: 技術記事
     attributes:
       user:
         email: メールアドレス
       daily_report:
         date: 日付
         content: 内容
+      article:
+        title: タイトル
+        content: 内容
+        status: ステータス
     errors:
       models:
         daily_report:
@@ -27,3 +32,7 @@ ja:
     destroy:
       success: "日報を削除しました"
       failure: "日報の削除に失敗しました"
+  articles:
+    create:
+      success: "技術記事を作成しました"
+      failure: "技術記事の保存に失敗しました"
