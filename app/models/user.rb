@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[github]
 
   has_many :daily_reports, dependent: :destroy
+  has_many :articles, dependent: :destroy
 
   def self.from_omniauth(auth)
     return nil if auth.info.email.blank?
