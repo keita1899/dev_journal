@@ -1,0 +1,38 @@
+  <%= form_with model: @article, class: "space-y-6" do |f| %>
+    <%= render 'shared/error_messages', model: f.object, subject: '技術記事の保存' %>
+
+    <div>
+      <%= f.label :title, "タイトル", class: "block text-sm font-medium text-gray-400 mb-1" %>
+      <%= f.text_field :title, 
+          class: "w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-500",
+          placeholder: "記事のタイトルを入力してください" %>
+      <%= render 'shared/field_error', f: f, field: :title %>
+    </div>
+
+    <div>
+      <%= f.label :content, "本文 (Markdown)", class: "block text-sm font-medium text-gray-400 mb-1" %>
+      <%= f.text_area :content, rows: 20, 
+          class: "w-full p-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-indigo-500 focus:border-indigo-500 font-mono text-sm",
+          placeholder: "技術的な知見をMarkdownで共有しましょう" %>
+      <%= render 'shared/field_error', f: f, field: :content %>
+    </div>
+
+    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+      <span class="block text-sm font-medium text-gray-400 mb-2">公開設定</span>
+      <div class="flex gap-6">
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :status, :draft, class: "w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500" %>
+          <span class="ml-2 text-sm text-gray-300">下書き保存</span>
+        </label>
+        <label class="flex items-center cursor-pointer">
+          <%= f.radio_button :status, :published, class: "w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 focus:ring-indigo-500" %>
+          <span class="ml-2 text-sm text-gray-300 font-bold">公開する</span>
+        </label>
+      </div>
+  <%= render 'shared/field_error', f: f, field: :status %>
+    </div>
+
+    <div class="flex justify-end pt-4">
+      <%= f.submit "記事を保存", class: "px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition duration-150 cursor-pointer shadow-lg" %>
+    </div>
+  <% end %>
