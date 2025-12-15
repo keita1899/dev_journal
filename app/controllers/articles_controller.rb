@@ -1,7 +1,11 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: %i[new create]
 
-  def index; end
+  def index
+    @articles = Article.published.includes(:user).order(created_at: :desc).page(params[:page])
+  end
+
+  def show; end
 
   def new
     @article = current_user.articles.build(status: :draft)
