@@ -1,0 +1,36 @@
+<div class="space-y-4">
+  <% articles.each do |article| %>
+    <article class="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow duration-200 flex flex-col">
+      
+      <%= link_to article_path(article), class: "block mb-4 group" do %>
+        
+        <h2 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+          <%= article.title %>
+        </h2>
+
+        <div class="text-gray-600 text-sm leading-relaxed line-clamp-2">
+          <%= article.content %>
+        </div>
+        
+      <% end %>
+
+      <div class="mt-auto flex items-center justify-between pt-4">
+        
+        <div class="flex items-center">
+          <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold mr-2">
+            <%= article.user.nickname&.first&.upcase || '?' %>
+          </div>
+          <span class="text-sm font-medium text-gray-700">
+            @<%= article.user.nickname %>
+          </span>
+        </div>
+
+        <div class="text-xs text-gray-400">
+          <%= time_ago_in_words(article.created_at) %>前
+        </div>
+        
+      </div>
+
+    </article>
+  <% end %>
+</div>
