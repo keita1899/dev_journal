@@ -36,6 +36,9 @@ ja:
     create:
       success: 技術記事を作成しました
       failure: 技術記事の保存に失敗しました
+    update:
+      success: 技術記事を更新しました
+      failure: 技術記事の保存に失敗しました
   views:
     pagination:
       previous: <
