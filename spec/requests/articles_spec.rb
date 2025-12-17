@@ -60,6 +60,59 @@ RSpec.describe 'Articles', type: :request do
     end
   end
 
+  describe 'GET #show' do
+    let(:other_user) { create(:user) }
+    let!(:article) { create(:article, :published, user: user, title: '詳細ページのテスト') }
+    let!(:draft_article) { create(:article, :draft, user: user) }
+
+    context '未ログイン（ゲスト）の場合' do
+      it '正常に表示され、編集ボタンが表示されないこと' do
+        get article_path(article)
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include(article.title)
+        expect(response.body).not_to include(edit_article_path(article))
+      end
+    end
+
+    context '記事の作成者がログインしている場合' do
+      before { sign_in user }
+
+      it '編集ボタンが表示されること' do
+        get article_path(article)
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include(edit_article_path(article))
+      end
+    end
+
+    context '記事の作成者以外がログインしている場合' do
+      before { sign_in other_user }
+
+      it '編集ボタンが表示されないこと' do
+        get article_path(article)
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include(article.title)
+        expect(response.body).not_to include(edit_article_path(article))
+      end
+    end
+
+    context '下書き記事にアクセスした場合' do
+      it '404エラーが発生すること' do
+        get article_path(draft_article)
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context '存在しないIDにアクセスした場合' do
+      it '404エラーが発生すること' do
+        get article_path(id: 999_999)
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
   describe 'GET #new' do
     context 'ログイン済みの場合' do
       before { sign_in user }

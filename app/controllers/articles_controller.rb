@@ -1,15 +1,19 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create]
+  before_action :authenticate_user!, only: %i[new create edit]
 
   def index
     @articles = Article.published.includes(:user).order(created_at: :desc).page(params[:page])
   end
 
-  def show; end
+  def show
+    @article = Article.published.includes(:user).find(params[:id])
+  end
 
   def new
     @article = current_user.articles.build(status: :draft)
   end
+
+  def edit; end
 
   def create
     @article = current_user.articles.build(article_params)
