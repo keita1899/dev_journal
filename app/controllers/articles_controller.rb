@@ -6,7 +6,10 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.published.includes(:user).find(params[:id])
+    @article = Article.includes(:user).find(params[:id])
+    return if @article.published? || (user_signed_in? && @article.user == current_user)
+
+    raise ActiveRecord::RecordNotFound
   end
 
   def new
