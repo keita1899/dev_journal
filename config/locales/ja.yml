@@ -19,27 +19,28 @@ ja:
         daily_report:
           attributes:
             date:
-              less_than_or_equal_to: "は、未来の日付として登録できません"
+              less_than_or_equal_to: は、未来の日付として登録できません
   common:
-    login_required: "ログインが必要です。"
+    login_required: ログインが必要です。
   daily_reports:
     create:
-      success: "日報を作成しました"
-      failure: "日報の保存に失敗しました"
+      success: 日報を作成しました
+      failure: 日報の保存に失敗しました
     update:
-      success: "日報を更新しました"
-      failure: "日報の保存に失敗しました"
+      success: 日報を更新しました
+      failure: 日報の保存に失敗しました
     destroy:
-      success: "日報を削除しました"
-      failure: "日報の削除に失敗しました"
+      success: 日報を削除しました
+      failure: 日報の削除に失敗しました
   articles:
     create:
-      success: "技術記事を作成しました"
-      failure: "技術記事の保存に失敗しました"
+      success: 技術記事を作成しました
+      failure: 技術記事の保存に失敗しました
+    update:
+      success: 技術記事を更新しました
+      failure: 技術記事の保存に失敗しました
   views:
     pagination:
-      previous: "<"
-      next: ">"
-      truncate: "..."
-      first: "<<"
-      last: ">>"
+      previous: <
+      next: >
+      truncate: ...

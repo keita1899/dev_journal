@@ -7,7 +7,11 @@
         <div class="flex items-start justify-between mb-4">
           
           <div class="text-gray-400 text-sm flex flex-wrap items-center gap-x-4 gap-y-1">
-            <span><%= l @article.created_at, format: :long %> に公開</span>
+            <% if @article.published? %>
+              <span><%= l @article.created_at, format: :long %> に公開</span>
+            <% else %>
+              <span class="text-gray-500">下書き</span>
+            <% end %>
             <% if @article.updated_at > @article.created_at %>
               <span class="flex items-center text-gray-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 mr-1">

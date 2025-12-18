@@ -62,46 +62,68 @@ RSpec.describe 'Articles', type: :request do
 
   describe 'GET #show' do
     let(:other_user) { create(:user) }
-    let!(:article) { create(:article, :published, user: user, title: '詳細ページのテスト') }
-    let!(:draft_article) { create(:article, :draft, user: user) }
+    let!(:published_article) { create(:article, :published, user: user, title: '公開記事') }
+    let!(:draft_article) { create(:article, :draft, user: user, title: '下書き記事') }
 
-    context '未ログイン（ゲスト）の場合' do
-      it '正常に表示され、編集ボタンが表示されないこと' do
-        get article_path(article)
+    context '公開記事の場合' do
+      context '記事の作成者がログインしている場合' do
+        before { sign_in user }
 
-        expect(response).to have_http_status(:success)
-        expect(response.body).to include(article.title)
-        expect(response.body).not_to include(edit_article_path(article))
+        it '正常に表示され、編集ボタンが表示されること' do
+          get article_path(published_article)
+          expect(response).to have_http_status(:success)
+          expect(response.body).to include(published_article.title)
+          expect(response.body).to include(edit_article_path(published_article))
+        end
+      end
+
+      context '未ログインの場合' do
+        it '正常に表示され、編集ボタンが表示されないこと' do
+          get article_path(published_article)
+          expect(response).to have_http_status(:success)
+          expect(response.body).to include(published_article.title)
+          expect(response.body).not_to include(edit_article_path(published_article))
+        end
+      end
+
+      context '記事の作成者以外がログインしている場合' do
+        before { sign_in other_user }
+
+        it '正常に表示され、編集ボタンが表示されないこと' do
+          get article_path(published_article)
+          expect(response).to have_http_status(:success)
+          expect(response.body).to include(published_article.title)
+          expect(response.body).not_to include(edit_article_path(published_article))
+        end
       end
     end
 
-    context '記事の作成者がログインしている場合' do
-      before { sign_in user }
+    context '下書き記事の場合' do
+      context '記事の作成者がログインしている場合' do
+        before { sign_in user }
 
-      it '編集ボタンが表示されること' do
-        get article_path(article)
-
-        expect(response).to have_http_status(:success)
-        expect(response.body).to include(edit_article_path(article))
+        it '正常に表示されること' do
+          get article_path(draft_article)
+          expect(response).to have_http_status(:success)
+          expect(response.body).to include(draft_article.title)
+          expect(response.body).to include('下書き')
+        end
       end
-    end
 
-    context '記事の作成者以外がログインしている場合' do
-      before { sign_in other_user }
-
-      it '編集ボタンが表示されないこと' do
-        get article_path(article)
-
-        expect(response).to have_http_status(:success)
-        expect(response.body).to include(article.title)
-        expect(response.body).not_to include(edit_article_path(article))
+      context '未ログインの場合' do
+        it '404エラーが発生すること' do
+          get article_path(draft_article)
+          expect(response).to have_http_status(:not_found)
+        end
       end
-    end
 
-    context '下書き記事にアクセスした場合' do
-      it '404エラーが発生すること' do
-        get article_path(draft_article)
-        expect(response).to have_http_status(:not_found)
+      context '記事の作成者以外がログインしている場合' do
+        before { sign_in other_user }
+
+        it '404エラーが発生すること' do
+          get article_path(draft_article)
+          expect(response).to have_http_status(:not_found)
+        end
       end
     end
 
@@ -176,6 +198,97 @@ RSpec.describe 'Articles', type: :request do
           post articles_path, params: valid_params
         end.not_to change(Article, :count)
 
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
+
+  describe 'GET #edit' do
+    let(:other_user) { create(:user) }
+    let!(:article) { create(:article, :published, user: user, title: '編集ページのテスト') }
+    let!(:draft_article) { create(:article, :draft, user: user, title: '下書き記事') }
+
+    context 'ログイン済みで自分の記事の場合' do
+      before { sign_in user }
+
+      it '正常に表示されること' do
+        get edit_article_path(article)
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include('記事を編集')
+      end
+
+      it '下書き記事も編集可能であること' do
+        get edit_article_path(draft_article)
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include('記事を編集')
+      end
+    end
+
+    context 'ログイン済みで他人の記事の場合' do
+      before { sign_in other_user }
+
+      it '404エラーが発生すること' do
+        get edit_article_path(article)
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context '未ログインの場合' do
+      it 'トップページにリダイレクトされること' do
+        get edit_article_path(article)
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    let(:other_user) { create(:user) }
+    let!(:article) { create(:article, :published, user: user, title: '更新前のタイトル', content: '更新前の内容') }
+    let(:valid_params) do
+      { article: { title: '更新後のタイトル', content: '更新後の内容', status: :published } }
+    end
+    let(:invalid_params) do
+      { article: { title: nil, content: '更新後の内容', status: :published } }
+    end
+
+    context 'ログイン済みで自分の記事の場合' do
+      before { sign_in user }
+
+      context 'パラメータが有効な場合' do
+        it '正常に更新されること' do
+          patch article_path(article), params: valid_params
+          article.reload
+          expect(article.title).to eq('更新後のタイトル')
+          expect(article.content).to eq('更新後の内容')
+        end
+
+        it '更新後、記事詳細ページにリダイレクトされること' do
+          patch article_path(article), params: valid_params
+          expect(response).to redirect_to(article_path(article))
+        end
+      end
+
+      context 'パラメータが無効な場合' do
+        it 'フォームが再表示されること' do
+          patch article_path(article), params: invalid_params
+          expect(response).to have_http_status(:unprocessable_content)
+          expect(response.body).to include('記事を編集')
+        end
+      end
+    end
+
+    context 'ログイン済みで他人の記事の場合' do
+      before { sign_in other_user }
+
+      it '404エラーが発生すること' do
+        patch article_path(article), params: valid_params
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context '未ログインの場合' do
+      it 'トップページにリダイレクトされること' do
+        patch article_path(article), params: valid_params
         expect(response).to redirect_to(root_path)
       end
     end
