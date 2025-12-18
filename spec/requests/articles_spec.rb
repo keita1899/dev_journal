@@ -293,4 +293,36 @@ RSpec.describe 'Articles', type: :request do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    let(:other_user) { create(:user) }
+    let!(:article) { create(:article, :published, user: user, title: '削除対象の記事') }
+
+    context 'ログイン済みの場合' do
+      before { sign_in user }
+
+      it '記事が削除され、一覧ページにリダイレクトすること' do
+        expect do
+          delete article_path(article)
+        end.to change(Article, :count).by(-1)
+        expect(response).to have_http_status(:see_other)
+        expect(response).to redirect_to(articles_path)
+      end
+
+      it '他のユーザーの記事を削除しようとすると404エラーが発生すること' do
+        other_article = create(:article, :published, user: other_user)
+        expect { delete article_path(other_article) }.not_to change(Article, :count)
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context '未ログインの場合' do
+      it '記事が削除されず、ルートページにリダイレクトされること' do
+        expect do
+          delete article_path(article)
+        end.not_to change(Article, :count)
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
 end
