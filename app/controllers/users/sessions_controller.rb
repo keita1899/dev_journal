@@ -9,6 +9,6 @@ class Users::SessionsController < Devise::SessionsController
 
     sign_in user
 
-    redirect_to root_path, notice: t('devise.sessions.guest.sign_in')
+    redirect_to daily_reports_path, notice: t('devise.sessions.guest.sign_in')
   end
 end

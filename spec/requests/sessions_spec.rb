@@ -34,8 +34,9 @@ RSpec.describe 'Sessions', type: :request do
 
   describe 'ゲストログイン' do
     context 'ユーザーが未登録の場合' do
-      it 'ゲストログインが成功し、フラッシュメッセージが表示されること' do
+      it 'ゲストログインが成功し、カレンダーページにリダイレクトされること' do
         expect { post users_guest_sign_in_path }.to change(User, :count).by(1)
+        expect(response).to redirect_to(daily_reports_path)
         follow_redirect!
         expect(response.body).to include(I18n.t('devise.sessions.guest.sign_in'))
         expect(User.last.email).to eq 'guest@example.com'
@@ -52,6 +53,7 @@ RSpec.describe 'Sessions', type: :request do
         initial_count = User.count
         post users_guest_sign_in_path
         expect(User.count).to eq initial_count
+        expect(response).to redirect_to(daily_reports_path)
         follow_redirect!
 
         expect(response.body).to include(I18n.t('devise.sessions.guest.sign_in'))
