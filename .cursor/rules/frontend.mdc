@@ -1,0 +1,16 @@
+---
+description: ビュー(ERB)、Tailwind CSS、フロントエンド実装に関するルール
+globs: **/*.html.erb, **/*.css, **/*.js
+alwaysApply: true
+---
+
+## ビュー
+
+- パーシャルを積極的に使用
+- ERB テンプレートは読みやすく保つ
+- Turbo を使用した非同期処理
+
+## CSS / デザイン (Tailwind CSS)
+
+- 独自の CSS クラスは作らず、Tailwind のユーティリティクラスを使用する
+- モバイルファーストでレスポンシブ対応にする

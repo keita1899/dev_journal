@@ -1,0 +1,72 @@
+---
+alwaysApply: true
+---
+
+## 基本方針
+
+- 新規コードにはコメントは書かない
+- できるだけ早期リターンを使ってネストを浅くする
+- コードはシンプルで読みやすく保つ
+- YAGNI 原則（現時点で不要なコードは書かない）の徹底
+- DRY 原則（重複コードの排除）の徹底
+- KISS 原則（シンプルなコードを追求）の徹底
+
+## 命名規則
+
+### 基本原則
+
+- 変数名、関数名、クラス名など、すべての識別子は英語を使用する。ローマ字（`hensuu`, `shinki`）は絶対禁止
+- 完全な単語: `usr` ではなく `user`、`addr` ではなく `address` のように省略せず記述する（慣習的な `id`, `url`, `http` 等は例外）
+- 具体性: `data`, `info`, `item`, `value`, `obj` などの汎用的で意味を持たない名前は禁止。中身を表す名前（`user_profile`, `cart_items`）にする
+
+### Ruby / Rails (Backend)
+
+- 変数・メソッド: `snake_case` (例: `fetch_articles`)
+- クラス・モジュール: `PascalCase` (例: `ArticlesController`, `UserRegistrationForm`)
+- 定数: `SCREAMING_SNAKE_CASE` (例: `MAX_UPLOAD_SIZE`)
+- Boolean 変数: `is_`, `has_`, `can_`, `should_` などの接頭辞を付け、真偽値であることがわかるようにする (例: `is_published`, `has_error`)
+- Boolean メソッド: メソッド名の末尾に `?` を付ける (例: `published?`, `valid_password?`)
+- 破壊的メソッド: 例外を発生させる、または副作用がある場合は `!` を付ける (例: `save!`, `normalize!`)
+
+### JavaScript / Frontend
+
+- 変数・関数: `camelCase` (例: `handleSubmit`, `currentUser`)
+- クラス (React/ES6): `PascalCase` (例: `ArticleCard`)
+- 定数: `SCREAMING_SNAKE_CASE`
+- ファイル名:
+  - Rails のビュー/パーシャル: `snake_case` (例: `_article_list.html.erb`)
+  - JS ファイル: `snake_case` または `kebab-case` (プロジェクトの慣習に合わせる)
+
+### 動詞の使い分け (Verbs)
+
+メソッド名の先頭に使用する動詞を統一する:
+
+- `fetch_`: DB や外部 API からデータを取得する (例: `fetch_articles`)
+- `get_`: ゲッター、または計算不要な単純な取得 (例: `get_full_name`)
+- `find_`: 検索して見つからない場合に `nil` または例外を返す (例: `find_user`)
+- `create_`: 新しいデータを作成して保存する
+- `build_`: メモリ上で新しいインスタンスを作成する（保存はしない）
+- `update_`: 既存のデータを更新する
+- `delete_` / `destroy_`: データを削除する
+- `calc_` / `compute_`: 計算処理を行う
+- `check_` / `validate_`: 検証を行う（戻り値が Boolean か例外かで使い分けること）
+
+## 国際化
+
+- メッセージは `config/locales/ja.yml` に定義
+- コントローラーでは `t('.success')` のような形式で使用
+- 文字列リテラルは直接書かず、必ずロケールファイルから取得
+
+## Git 運用
+
+- ブランチ名は `feature/`, `fix/`, `chore/`, `test/`, `refactor/` などのプレフィックスを使用
+- コミットメッセージは明確に記述
+- Issue・PR 作成時はテンプレートを使用
+
+## コードレビュー時のチェックポイント
+
+- セキュリティチェック（権限、パラメータ）
+- テストカバレッジ
+- パフォーマンス（N+1、不要なクエリ）
+- コードの可読性
+- エラーハンドリング
