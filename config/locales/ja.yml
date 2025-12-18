@@ -39,6 +39,9 @@ ja:
     update:
       success: 技術記事を更新しました
       failure: 技術記事の保存に失敗しました
+    destroy:
+      success: 記事を削除しました
+      failure: 記事の削除に失敗しました
   views:
     pagination:
       previous: <

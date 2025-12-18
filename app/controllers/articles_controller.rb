@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create edit update]
+  before_action :authenticate_user!, only: %i[new create edit update destroy]
 
   def index
     @articles = Article.published.includes(:user).order(created_at: :desc).page(params[:page])
@@ -37,6 +37,13 @@ class ArticlesController < ApplicationController
     else
       render :edit, status: :unprocessable_content
     end
+  end
+
+  def destroy
+    @article = current_user.articles.find(params[:id])
+    return redirect_to articles_path, alert: t('.failure') unless @article.destroy
+
+    redirect_to articles_path, notice: t('.success'), status: :see_other
   end
 
   private
