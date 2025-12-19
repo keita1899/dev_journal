@@ -22,8 +22,8 @@ RSpec.describe 'OAuth Login', type: :request do
         expect(User.last.nickname).to eq 'oauth_test_user'
       end
 
-      it 'トップページへリダイレクトすること' do
-        expect(response).to redirect_to(root_path)
+      it 'カレンダーページへリダイレクトすること' do
+        expect(response).to redirect_to(daily_reports_path)
       end
 
       it '認証成功のフラッシュメッセージが表示されること' do
