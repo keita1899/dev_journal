@@ -10,7 +10,7 @@
       <%= render "articles_list", articles: @articles %>
 
       <div class="mt-10 flex justify-center">
-        <%= paginate @articles %>
+        <%== @pagy.series_nav(slots: 7) if @pagy.last > 1 %>
       </div>
 
     <% else %>

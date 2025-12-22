@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Method
+
   protected
 
   def authenticate_user!(_options = {})
