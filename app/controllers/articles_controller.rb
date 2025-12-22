@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update destroy]
 
   def index
-    @articles = Article.published.includes(:user).order(created_at: :desc).page(params[:page])
+    @pagy, @articles = pagy(Article.published.includes(:user).order(created_at: :desc))
   end
 
   def show

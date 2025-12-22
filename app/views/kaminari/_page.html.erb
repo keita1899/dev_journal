@@ -1,9 +1,0 @@
-<% base_classes = "w-10 h-10 flex items-center justify-center rounded-full text-sm font-medium transition-colors duration-200" %>
-
-<% if page.current? %>
-  <span class="<%= base_classes %> bg-indigo-600 text-white shadow-md">
-    <%= page %>
-  </span>
-<% else %>
-  <%= link_to page, url, class: "#{base_classes} text-gray-700 hover:bg-gray-100 bg-white border border-gray-200" %>
-<% end %>
