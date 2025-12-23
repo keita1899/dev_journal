@@ -1,11 +1,15 @@
-<div class="container mx-auto px-4 py-8 max-w-4xl">
-  <div class="flex justify-between items-center">
-    <h1 class="text-3xl font-bold text-white">日報カレンダー</h1>
-    <%= link_to "＋ 日報を書く", new_daily_report_path, class: "inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition shadow-lg shadow-indigo-900/20" %>
-  </div>
+<div class="min-h-screen py-10">
+  <div class="container mx-auto px-4 max-w-4xl">
+    
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold text-white">日報カレンダー</h1>
+      <%= link_to "＋ 日報を書く", new_daily_report_path, class: "inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition shadow-lg shadow-indigo-900/20" %>
+    </div>
 
-  <div class="rounded-lg shadow-xl mt-6">
-    <%= month_calendar events: @daily_reports, attribute: :date do |day, reports| %>
-    <% end %>
+    <div class="rounded-lg shadow-xl">
+      <%= month_calendar events: @daily_reports, attribute: :date do |day, reports| %>
+      <% end %>
+    </div>
+
   </div>
 </div>
