@@ -1,0 +1,25 @@
+<article id="memo_<%= memo.id %>" class="bg-white rounded-lg border border-gray-200 shadow-sm py-2 px-6 hover:shadow-md transition-shadow duration-200 mb-4">
+  
+  <div class="text-gray-900 text-base whitespace-pre-wrap break-words">
+    <%= simple_format(h(memo.body)) %>
+  </div>
+
+  <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+    
+    <div class="flex items-center">
+      <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold mr-2">
+        <%= memo.user.nickname&.first&.upcase || '?' %>
+      </div>
+      <span class="text-sm font-medium text-gray-700">
+        @<%= memo.user.nickname %>
+      </span>
+    </div>
+
+    <div class="text-xs text-gray-400">
+      <%= time_ago_in_words(memo.created_at) %>前
+    </div>
+    
+  </div>
+
+</article>
+

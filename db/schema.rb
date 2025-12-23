@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_10_101653) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_22_091637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,6 +37,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_10_101653) do
     t.index ["user_id"], name: "index_daily_reports_on_user_id"
   end
 
+  create_table "memos", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_memos_on_created_at"
+    t.index ["user_id"], name: "index_memos_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -55,4 +64,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_10_101653) do
 
   add_foreign_key "articles", "users"
   add_foreign_key "daily_reports", "users"
+  add_foreign_key "memos", "users"
 end

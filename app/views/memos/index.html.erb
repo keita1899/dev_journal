@@ -1,0 +1,35 @@
+<div class=" py-10" data-controller="modal">
+  <div class="container mx-auto px-4 max-w-4xl">
+    
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold text-white">メモ</h1>
+      <button 
+        type="button"
+        data-action="click->modal#open"
+        class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition shadow-lg shadow-indigo-900/20"
+      >
+        ＋ メモを書く
+      </button>
+    </div>
+
+    <%= render "shared/flash_message" %>
+
+    <% if @memos.present? %>
+      <div id="memos" class="space-y-4">
+        <%= render @memos %>
+      </div>
+
+      <div class="mt-10 flex justify-center">
+        <%== @pagy.series_nav(slots: 7) if @pagy.last > 1 %>
+      </div>
+
+    <% else %>
+      <%= render "shared/empty_state", message: "まだメモが投稿されていません" %>
+    <% end %>
+
+  </div>
+
+  <%= render "memos/modal", memo: @memo %>
+</div>
+
+

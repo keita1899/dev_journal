@@ -1,0 +1,32 @@
+<%= form_with model: memo, url: memos_path, data: { turbo: true }, local: false, id: "memo_form", class: "space-y-4" do |f| %>
+  <%= render "shared/error_messages", model: f.object, subject: 'メモの保存' %>
+
+  <div data-controller="character-counter" data-character-counter-max-value="500">
+    <%= f.text_area :body, 
+      rows: 8,
+      maxlength: 500,
+      data: { 
+        character_counter_target: "input",
+        action: "input->character-counter#updateCounter"
+      },
+      class: "w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 resize-none" %>
+    <div 
+      data-character-counter-target="counter"
+      class="mt-1 text-sm text-gray-500"
+    >
+      <span data-character-counter-target="remaining">500</span> 文字まで
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-3">
+    <button
+      type="button"
+      data-action="click->modal#close"
+      class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+    >
+      キャンセル
+    </button>
+    <%= f.submit "保存", class: "px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+  </div>
+<% end %>
+
