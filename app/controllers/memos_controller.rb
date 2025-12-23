@@ -23,4 +23,3 @@ class MemosController < ApplicationController
     params.require(:memo).permit(:body)
   end
 end
-

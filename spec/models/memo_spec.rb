@@ -32,7 +32,7 @@ RSpec.describe Memo, type: :model do
     let!(:new_memo) { create(:memo, user: user, created_at: 1.hour.ago) }
 
     it '作成日時の降順で取得されること' do
-      expect(Memo.all).to eq([new_memo, old_memo])
+      expect(described_class.all).to eq([new_memo, old_memo])
     end
   end
 end

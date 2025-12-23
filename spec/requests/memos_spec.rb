@@ -49,19 +49,15 @@ RSpec.describe 'Memos', type: :request do
 
         let!(:oldest_memo) { create(:memo, user: user, body: '2 page memo', created_at: 1.year.ago) }
 
-        context 'パラメータなし（1ページ目）の場合' do
-          it '2ページ目のメモは表示されないこと' do
-            get memos_path
-            expect(response.body).not_to include(oldest_memo.body)
-          end
+        it 'パラメータなし（1ページ目）の場合、2ページ目のメモは表示されないこと' do
+          get memos_path
+          expect(response.body).not_to include(oldest_memo.body)
         end
 
-        context '2ページ目を指定した場合' do
-          it '2ページ目のメモが表示されること' do
-            get memos_path(page: 2)
-            expect(response).to have_http_status(:success)
-            expect(response.body).to include(oldest_memo.body)
-          end
+        it '2ページ目を指定した場合、2ページ目のメモが表示されること' do
+          get memos_path(page: 2)
+          expect(response).to have_http_status(:success)
+          expect(response.body).to include(oldest_memo.body)
         end
       end
     end
@@ -130,4 +126,3 @@ RSpec.describe 'Memos', type: :request do
     end
   end
 end
-
