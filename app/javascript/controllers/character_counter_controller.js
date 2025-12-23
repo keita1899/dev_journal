@@ -17,11 +17,9 @@ export default class extends Controller {
     if (remaining < 0) {
       this.counterTarget.classList.add('text-red-500')
       this.counterTarget.classList.remove('text-gray-500')
-      this.element.setAttribute('maxlength', currentLength)
     } else {
       this.counterTarget.classList.remove('text-red-500')
       this.counterTarget.classList.add('text-gray-500')
-      this.element.setAttribute('maxlength', this.maxValue)
     }
   }
 }

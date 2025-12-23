@@ -5,7 +5,13 @@ export default class extends Controller {
 
   connect() {
     this.handleEscape = this.handleEscape.bind(this)
-    this.element.addEventListener('turbo:close-modal', this.close.bind(this))
+    this.closeHandler = this.close.bind(this)
+    this.element.addEventListener('turbo:close-modal', this.closeHandler)
+  }
+
+  disconnect() {
+    this.element.removeEventListener('turbo:close-modal', this.closeHandler)
+    document.removeEventListener('keydown', this.handleEscape)
   }
 
   open() {
