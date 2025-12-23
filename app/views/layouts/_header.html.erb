@@ -7,7 +7,12 @@
 
     <nav class="flex items-center gap-4">
       <% if user_signed_in? %>
-        <div class="flex items-center gap-4 pl-4">
+        <div class="flex items-center gap-4">
+          <%= link_to "日報", daily_reports_path, class: "text-sm text-gray-400 hover:text-white transition" %>
+          <%= link_to "記事", articles_path, class: "text-sm text-gray-400 hover:text-white transition" %>
+          <%= link_to "メモ", memos_path, class: "text-sm text-gray-400 hover:text-white transition" %>
+        </div>
+        <div class="flex items-center gap-4 pl-4 border-l border-gray-700">
           <span class="text-sm text-indigo-400 font-medium hidden sm:block">
             <%= current_user.nickname %>
           </span>

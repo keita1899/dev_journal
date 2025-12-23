@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :daily_reports, dependent: :destroy
   has_many :articles, dependent: :destroy
+  has_many :memos, dependent: :destroy
 
   def self.from_omniauth(auth)
     return nil if auth.info.email.blank?

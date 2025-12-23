@@ -1,0 +1,40 @@
+<div
+  id="memo_modal"
+  data-modal-target="modal"
+  class="hidden fixed inset-0 z-50 overflow-y-auto"
+  aria-labelledby="modal-title"
+  role="dialog"
+  aria-modal="true"
+>
+  <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+    <div
+      data-action="click->modal#closeOnBackdrop"
+      data-modal-target="backdrop"
+      class="fixed inset-0 bg-black/50 transition-opacity"
+    ></div>
+
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+    <div class="relative z-10 inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+      <div class="bg-white p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-medium text-gray-900" id="modal-title">
+            メモを書く
+          </h3>
+          <button
+            type="button"
+            data-action="click->modal#close"
+            class="text-gray-400 hover:text-gray-500 focus:outline-none"
+          >
+            <span class="sr-only">閉じる</span>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <%= render "form", memo: memo %>
+      </div>
+    </div>
+  </div>
+</div>
+

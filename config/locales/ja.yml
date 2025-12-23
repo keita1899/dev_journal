@@ -4,6 +4,7 @@ ja:
       user: ユーザー
       daily_report: 日報
       articles: 技術記事
+      memo: メモ
     attributes:
       user:
         email: メールアドレス
@@ -14,6 +15,8 @@ ja:
         title: タイトル
         content: 内容
         status: ステータス
+      memo:
+        body: 本文
     errors:
       models:
         daily_report:
@@ -42,6 +45,10 @@ ja:
     destroy:
       success: 記事を削除しました
       failure: 記事の削除に失敗しました
+  memos:
+    create:
+      success: メモを作成しました
+      failure: メモの保存に失敗しました
   views:
     pagination:
       previous: <
